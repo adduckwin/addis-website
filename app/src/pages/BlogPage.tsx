@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, Calendar, Clock } from 'lucide-react'
 import { blogPosts, getAllCategories } from '@/data/blog'
@@ -21,7 +21,14 @@ const BlogPlaceholder = () => (
 )
 
 export default function BlogPage() {
+  const [searchParams] = useSearchParams()
   const categories = getAllCategories()
+  const selectedCategory = searchParams.get('category')
+  
+  // Фильтрация постов по категории
+  const filteredPosts = selectedCategory
+    ? blogPosts.filter(post => post.category.toLowerCase() === selectedCategory.toLowerCase())
+    : blogPosts
 
   return (
     <div className="min-h-screen bg-white">
@@ -55,7 +62,11 @@ export default function BlogPage() {
             <div className="flex flex-wrap items-center justify-center gap-3">
               <Link
                 to="/blog"
-                className="px-4 py-2 bg-gray-900 text-white text-sm rounded-full"
+                className={`px-4 py-2 text-sm rounded-full transition-colors ${
+                  !selectedCategory
+                    ? 'bg-gray-900 text-white'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
               >
                 Все
               </Link>
@@ -63,7 +74,11 @@ export default function BlogPage() {
                 <Link
                   key={cat}
                   to={`/blog?category=${cat}`}
-                  className="px-4 py-2 bg-gray-100 text-gray-600 text-sm rounded-full hover:bg-gray-200 transition-colors"
+                  className={`px-4 py-2 text-sm rounded-full transition-colors ${
+                    selectedCategory === cat
+                      ? 'bg-gray-900 text-white'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
                 >
                   {cat}
                 </Link>
@@ -75,8 +90,13 @@ export default function BlogPage() {
         {/* Posts Grid */}
         <section className="py-16">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blogPosts.map((post, index) => (
+            {filteredPosts.length === 0 ? (
+              <div className="text-center py-20">
+                <p className="text-gray-500 text-lg">В этой категории пока нет публикаций</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredPosts.map((post, index) => (
                 <motion.article
                   key={post.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -112,6 +132,7 @@ export default function BlogPage() {
                 </motion.article>
               ))}
             </div>
+            )}
           </div>
         </section>
       </main>

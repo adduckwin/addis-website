@@ -36,23 +36,20 @@ export default function Header() {
 
   // Функция для скролла к секции
   const scrollToSection = (sectionId: string) => {
-    if (isHomePage) {
-      const element = document.getElementById(sectionId)
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
-      }
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
     }
-    setIsOpen(false)
   }
 
-  // Функция для навигации на главную и скролла
+  // Функция для навигации на главную и скролла к секции
   const navigateAndScroll = (sectionId: string) => {
     if (!isHomePage) {
+      // Сначала переходим на главную, затем скроллим после загрузки
       window.location.href = `/#${sectionId}`
     } else {
       scrollToSection(sectionId)
     }
-    setIsOpen(false)
   }
 
   return (
@@ -81,6 +78,12 @@ export default function Header() {
                 className="text-sm font-medium text-black/60 hover:text-black transition-colors tracking-tight"
               >
                 Кофе
+              </Link>
+              <Link
+                to="/category/tea"
+                className="text-sm font-medium text-black/60 hover:text-black transition-colors tracking-tight"
+              >
+                Чай
               </Link>
               <button
                 onClick={() => navigateAndScroll('about')}

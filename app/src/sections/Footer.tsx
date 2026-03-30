@@ -9,6 +9,7 @@ const footerLinks = {
       { name: 'Эспрессо', href: '/category/espresso' },
       { name: 'Фильтр', href: '/category/filter' },
       { name: 'Дрип-пакеты', href: '/category/drip' },
+      { name: 'Чай', href: '/category/tea' },
     ],
   },
   company: {
@@ -18,6 +19,7 @@ const footerLinks = {
       { name: 'Производство', href: '/#process' },
       { name: 'Блог', href: '/blog' },
       { name: 'Контакты', href: '/#contacts' },
+      { name: 'Оферта', href: '/privacy' },
     ],
   },
   business: {
@@ -89,10 +91,10 @@ export default function Footer() {
           </p>
           <div className="flex items-center gap-6 text-sm text-black/40">
             <Link to="/privacy" className="hover:text-black transition-colors font-medium tracking-tight">
-              Политика конфиденциальности
+              Публичная оферта
             </Link>
-            <Link to="/terms" className="hover:text-black transition-colors font-medium tracking-tight">
-              Условия использования
+            <Link to="/privacy" className="hover:text-black transition-colors font-medium tracking-tight">
+              Политика конфиденциальности
             </Link>
           </div>
         </div>

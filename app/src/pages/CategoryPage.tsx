@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Star, ArrowLeft, Filter } from 'lucide-react'
 import { getProductsByCategory, products, type Product } from '@/data/products'
@@ -77,14 +77,22 @@ const categoryInfo: Record<string, { title: string; description: string }> = {
     title: 'Кофе в капсулах',
     description: 'Совместимы с Nespresso. Идеальны для дома и офиса',
   },
+  tea: {
+    title: 'Чай',
+    description: 'Чёрный, зелёный, белый, улун, пуэр — коллекция из 30 позиций со всего мира',
+  },
 }
 
 export default function CategoryPage() {
   const { category } = useParams<{ category: string }>()
-  const validCategory = category && ['espresso', 'filter', 'drip', 'capsules'].includes(category)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const validCategory = category && ['espresso', 'filter', 'drip', 'capsules', 'tea'].includes(category)
     ? category as Product['category']
     : null
 
+  // Получаем фильтр типа чая из URL
+  const teaType = searchParams.get('type')
+  
   if (!validCategory) {
     return (
       <div className="min-h-screen bg-white">
@@ -107,7 +115,16 @@ export default function CategoryPage() {
   }
 
   const categoryProducts = getProductsByCategory(validCategory)
+  
+  // Фильтрация по типу чая если категория tea
+  const filteredProducts = validCategory === 'tea' && teaType
+    ? categoryProducts.filter(p => p.type.toLowerCase().includes(teaType.toLowerCase()))
+    : categoryProducts
+  
   const info = categoryInfo[validCategory]
+
+  // Типы чая для фильтров
+  const teaTypes = ['Чёрный', 'Зелёный', 'Белый', 'Улун', 'Пуэр']
 
   return (
     <div className="min-h-screen bg-white">
@@ -130,7 +147,7 @@ export default function CategoryPage() {
                 {info.title}
               </h1>
               <p className="text-gray-500 text-lg max-w-2xl">{info.description}</p>
-              <p className="text-gray-400 mt-4">{categoryProducts.length} товаров</p>
+              <p className="text-gray-400 mt-4">{filteredProducts.length} товаров</p>
             </motion.div>
           </div>
         </section>
@@ -139,22 +156,56 @@ export default function CategoryPage() {
         <section className="py-16">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
             {/* Filter bar */}
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-4">
+            <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
+              <div className="flex items-center gap-4 flex-wrap">
                 <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-colors">
                   <Filter className="w-4 h-4" />
                   Фильтры
                 </button>
+                {/* Фильтры для чая */}
+                {validCategory === 'tea' && (
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <button
+                      onClick={() => setSearchParams({})}
+                      className={`px-4 py-2 rounded-full text-sm transition-colors ${
+                        !teaType
+                          ? 'bg-gray-900 text-white'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
+                    >
+                      Все
+                    </button>
+                    {teaTypes.map(type => (
+                      <button
+                        key={type}
+                        onClick={() => setSearchParams({ type: type.toLowerCase() })}
+                        className={`px-4 py-2 rounded-full text-sm transition-colors ${
+                          teaType === type.toLowerCase()
+                            ? 'bg-gray-900 text-white'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        }`}
+                      >
+                        {type}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
               <p className="text-gray-400 text-sm">Сортировка: по популярности</p>
             </div>
 
             {/* Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {categoryProducts.map((product, index) => (
-                <ProductCard key={product.id} product={product} index={index} />
-              ))}
-            </div>
+            {filteredProducts.length === 0 ? (
+              <div className="text-center py-20">
+                <p className="text-gray-500 text-lg">В этой категории пока нет товаров</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {filteredProducts.map((product, index) => (
+                  <ProductCard key={product.id} product={product} index={index} />
+                ))}
+              </div>
+            )}
           </div>
         </section>
 

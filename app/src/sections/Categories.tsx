@@ -23,6 +23,12 @@ const categories = [
     count: '10 позиций',
     description: 'Удобный формат для офиса',
   },
+  {
+    id: 'tea',
+    name: 'Чай',
+    count: '30 позиций',
+    description: 'Чёрный, зелёный, белый, улун, пуэр',
+  },
 ]
 
 // Category placeholder
