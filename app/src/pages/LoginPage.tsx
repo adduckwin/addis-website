@@ -364,63 +364,8 @@ export default function LoginPage() {
                   </CardContent>
                 </Card>
 
-                {/* Test Accounts */}
-                <Card className="border-[#E5E7EB] mt-6">
-                  <CardHeader>
-                    <CardTitle className="text-lg">Тестовые аккаунты</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    {activeTab === 'retail' ? (
-                      <>
-                        <div 
-                          className="p-3 bg-[#F0FDF4] rounded-lg cursor-pointer hover:bg-[#DCFCE7] transition-colors"
-                          onClick={() => {
-                            setRetailForm({ email: 'retail@test.com', password: 'test123', rememberMe: false })
-                          }}
-                        >
-                          <p className="font-medium text-[#166534]">Розничный клиент</p>
-                          <p className="text-sm text-[#6B7280]">Email: retail@test.com</p>
-                          <p className="text-sm text-[#6B7280]">Пароль: test123</p>
-                        </div>
-                        <div 
-                          className="p-3 bg-[#F0F9FF] rounded-lg cursor-pointer hover:bg-[#E0F2FE] transition-colors"
-                          onClick={() => {
-                            setRetailForm({ email: 'admin@test.com', password: 'admin123', rememberMe: false })
-                          }}
-                        >
-                          <p className="font-medium text-[#0369A1]">Администратор</p>
-                          <p className="text-sm text-[#6B7280]">Email: admin@test.com</p>
-                          <p className="text-sm text-[#6B7280]">Пароль: admin123</p>
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div 
-                          className="p-3 bg-[#F0FDF4] rounded-lg cursor-pointer hover:bg-[#DCFCE7] transition-colors"
-                          onClick={() => {
-                            setWholesaleForm({ email: 'wholesale@test.com', password: 'test123', rememberMe: false })
-                          }}
-                        >
-                          <p className="font-medium text-[#166534]">Оптовый клиент (Базовый)</p>
-                          <p className="text-sm text-[#6B7280]">Email: wholesale@test.com</p>
-                          <p className="text-sm text-[#6B7280]">Пароль: test123</p>
-                          <p className="text-sm text-[#16A34A]">Скидка: 20%</p>
-                        </div>
-                        <div 
-                          className="p-3 bg-[#FEF3C7] rounded-lg cursor-pointer hover:bg-[#FDE68A] transition-colors"
-                          onClick={() => {
-                            setWholesaleForm({ email: 'partner@test.com', password: 'test123', rememberMe: false })
-                          }}
-                        >
-                          <p className="font-medium text-[#92400E]">Партнёрский (Продвинутый)</p>
-                          <p className="text-sm text-[#6B7280]">Email: partner@test.com</p>
-                          <p className="text-sm text-[#6B7280]">Пароль: test123</p>
-                          <p className="text-sm text-[#D97706]">Скидка: 25%</p>
-                        </div>
-                      </>
-                    )}
-                  </CardContent>
-                </Card>
+                {/* Test Accounts - REMOVED FOR PRODUCTION */}
+                {/* Тестовые аккаунты удалены для финального деплоя */}
               </motion.div>
 
               {/* Benefits */}

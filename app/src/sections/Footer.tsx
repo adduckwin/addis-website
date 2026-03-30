@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Instagram, Send } from 'lucide-react'
+import { Send } from 'lucide-react'
 import { AddisLogo } from '@/components/AddisLogo'
 
 const footerLinks = {
@@ -44,15 +44,17 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-3">
               <a
-                href="https://instagram.com"
+                href="https://vk.com/addis_coffee"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-black text-white flex items-center justify-center hover:bg-black/80 transition-all"
               >
-                <Instagram className="w-5 h-5" />
+                <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M15.073 2H8.937C5.106 2 2 5.106 2 8.937v6.126C2 18.894 5.106 22 8.937 22h6.126C18.894 22 22 18.894 22 15.063V8.937C22 5.106 18.894 2 15.073 2zM17.89 15.77c-.265.293-.58.54-.93.736-.32.18-.66.31-1.01.38-.33.07-.67.1-1.01.1-.32 0-.64-.03-.95-.1-.3-.07-.58-.18-.85-.33-.26-.14-.5-.32-.72-.53-.21-.2-.4-.43-.56-.68-.15-.24-.27-.5-.36-.77-.09-.27-.14-.55-.14-.84 0-.28.05-.55.14-.81.09-.26.21-.5.37-.72.16-.22.35-.41.57-.57.22-.16.46-.28.72-.37.26-.09.53-.13.81-.13.27 0 .53.04.78.13.25.09.48.22.69.38.21.16.39.35.54.57.15.22.26.46.33.72.07.26.1.53.1.81 0 .29-.04.57-.12.84-.08.27-.2.52-.35.75-.15.23-.33.43-.54.61-.21.18-.45.32-.71.43-.26.11-.54.17-.83.17-.28 0-.55-.05-.81-.15-.26-.1-.49-.24-.7-.42-.21-.18-.38-.39-.52-.63-.14-.24-.23-.5-.28-.78-.05-.28-.06-.56-.03-.84.03-.28.1-.55.21-.8.11-.25.26-.48.45-.68.19-.2.41-.37.66-.5.25-.13.52-.22.8-.27.28-.05.57-.06.85-.02.28.04.55.12.8.24.25.12.47.28.66.47.19.19.34.41.45.65.11.24.17.5.18.77.01.27-.03.53-.11.78-.08.25-.2.48-.36.68z"/>
+                </svg>
               </a>
               <a
-                href="https://t.me"
+                href="https://t.me/addis_coffee"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 bg-black text-white flex items-center justify-center hover:bg-black/80 transition-all"
