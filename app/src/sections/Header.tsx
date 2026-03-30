@@ -34,23 +34,12 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Функция для скролла к секции
-  const scrollToSection = (sectionId: string) => {
-    if (isHomePage) {
-      const element = document.getElementById(sectionId)
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
-      }
-    }
-    setIsOpen(false)
-  }
-
-  // Функция для навигации на главную и скролла
-  const navigateAndScroll = (sectionId: string) => {
-    if (!isHomePage) {
-      window.location.href = `/#${sectionId}`
+  // Функция для перехода на страницу с секцией
+  const navigateToPageWithSection = (path: string, sectionId?: string) => {
+    if (sectionId) {
+      window.location.href = `${path}#${sectionId}`
     } else {
-      scrollToSection(sectionId)
+      window.location.href = path
     }
     setIsOpen(false)
   }
@@ -82,18 +71,26 @@ export default function Header() {
               >
                 Кофе
               </Link>
-              <button
-                onClick={() => navigateAndScroll('about')}
-                className="text-sm font-medium text-black/60 hover:text-black transition-colors tracking-tight"
+              <Link
+                to="/#about"
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigateToPageWithSection('/', 'about')
+                }}
+                className="text-sm font-medium text-black/60 hover:text-black transition-colors tracking-tight cursor-pointer"
               >
                 О нас
-              </button>
-              <button
-                onClick={() => navigateAndScroll('horeca')}
-                className="text-sm font-medium text-black/60 hover:text-black transition-colors tracking-tight"
+              </Link>
+              <Link
+                to="/#horeca"
+                onClick={(e) => {
+                  e.preventDefault()
+                  navigateToPageWithSection('/', 'horeca')
+                }}
+                className="text-sm font-medium text-black/60 hover:text-black transition-colors tracking-tight cursor-pointer"
               >
                 HoReCa
-              </button>
+              </Link>
               <Link
                 to="/blog"
                 className="text-sm font-medium text-black/60 hover:text-black transition-colors tracking-tight"
@@ -177,18 +174,24 @@ export default function Header() {
                       >
                         Кофе
                       </Link>
-                      <button
-                        onClick={() => navigateAndScroll('about')}
-                        className="text-2xl font-bold text-black hover:text-black/60 transition-colors tracking-tight text-left"
+                      <Link
+                        to="/#about"
+                        onClick={() => {
+                          navigateToPageWithSection('/', 'about')
+                        }}
+                        className="text-2xl font-bold text-black hover:text-black/60 transition-colors tracking-tight text-left cursor-pointer"
                       >
                         О нас
-                      </button>
-                      <button
-                        onClick={() => navigateAndScroll('horeca')}
-                        className="text-2xl font-bold text-black hover:text-black/60 transition-colors tracking-tight text-left"
+                      </Link>
+                      <Link
+                        to="/#horeca"
+                        onClick={() => {
+                          navigateToPageWithSection('/', 'horeca')
+                        }}
+                        className="text-2xl font-bold text-black hover:text-black/60 transition-colors tracking-tight text-left cursor-pointer"
                       >
                         HoReCa
-                      </button>
+                      </Link>
                       <Link
                         to="/blog"
                         onClick={() => setIsOpen(false)}
