@@ -1,0 +1,27 @@
+```
+# Dependencies
+node_modules/
+
+# Build artifacts
+dist/
+build/
+*.js
+*.css
+*.map
+
+# Environment
+.env
+.env.local
+.env.*
+
+# Cache
+.cache/
+.vite/
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+```
