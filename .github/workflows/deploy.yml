@@ -1,0 +1,41 @@
+# 🚀 Автоматический деплой на GitHub Pages
+# Работает так: ты пушишь изменения → GitHub сам собирает и деплоит
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]  # Запускается при пуше в main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 1. Скачиваем код
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # 2. Устанавливаем Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      # 3. Устанавливаем зависимости
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./app
+      
+      # 4. Собираем проект
+      - name: Build
+        run: npm run build
+        working-directory: ./app
+      
+      # 5. Деплоим на GitHub Pages
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./app/dist
+          force_orphan: true
