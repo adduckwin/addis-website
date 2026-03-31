@@ -204,8 +204,8 @@ export default function AdminLoginPage() {
                     </Button>
 
                     <div className="text-center">
-                      <a 
-                        href="/login" 
+                      <a
+                        href="/login"
                         className="text-sm text-gray-500 hover:text-gray-700"
                       >
                         ← Вернуться к обычному входу
@@ -215,15 +215,6 @@ export default function AdminLoginPage() {
                 )}
               </CardContent>
             </Card>
-
-            {/* Тестовые данные (только для разработки) */}
-            <div className="mt-6 p-4 bg-gray-100 rounded-lg">
-              <p className="text-xs font-medium text-gray-500 uppercase mb-2">Тестовые данные</p>
-              <div className="space-y-1 text-sm text-gray-600">
-                <p><strong>Логин:</strong> admin_addis</p>
-                <p><strong>Пароль:</strong> AddisSecure2025!</p>
-              </div>
-            </div>
           </motion.div>
         </div>
       </main>
