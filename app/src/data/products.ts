@@ -16,6 +16,7 @@ export interface Product {
   tag?: string
   isNew?: boolean
   isBestseller?: boolean
+  image?: string
 }
 
 export const products: Product[] = [

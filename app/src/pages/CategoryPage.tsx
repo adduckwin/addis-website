@@ -1,24 +1,32 @@
 import { useParams, Link, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Star, ArrowLeft, Filter } from 'lucide-react'
+import { Star, ArrowLeft, Filter, Image as ImageIcon } from 'lucide-react'
 import { getProductsByCategory, products, type Product } from '@/data/products'
 import Header from '@/sections/Header'
 import Footer from '@/sections/Footer'
 
-// Product placeholder
-const ProductPlaceholder = () => (
-  <div className="aspect-square bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl flex items-center justify-center border border-gray-100">
-    <div className="text-center">
-      <div className="w-12 h-12 mx-auto mb-2 bg-gray-200 rounded-lg flex items-center justify-center">
-        <svg viewBox="0 0 40 40" fill="none" className="w-6 h-6">
-          <rect x="10" y="8" width="20" height="24" rx="2" fill="#D1D5DB" />
-        </svg>
+// Product image component
+const ProductImage = ({ product }: { product: Product }) => {
+  if (product.image) {
+    return (
+      <img
+        src={product.image}
+        alt={product.name}
+        className="w-full aspect-square object-cover"
+      />
+    )
+  }
+  return (
+    <div className="aspect-square bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl flex items-center justify-center border border-gray-100">
+      <div className="text-center">
+        <div className="w-12 h-12 mx-auto mb-2 bg-gray-200 rounded-lg flex items-center justify-center">
+          <ImageIcon className="w-6 h-6 text-gray-300" />
+        </div>
+        <p className="text-gray-400 text-xs">Нет изображения</p>
       </div>
-      <p className="text-gray-400 text-xs">Image</p>
-      <p className="text-gray-300 text-[10px]">400 × 400</p>
     </div>
-  </div>
-)
+  )
+}
 
 // Product card
 const ProductCard = ({ product, index }: { product: Product; index: number }) => (
@@ -32,7 +40,7 @@ const ProductCard = ({ product, index }: { product: Product; index: number }) =>
       className="group block bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all"
     >
       <div className="relative">
-        <ProductPlaceholder />
+        <ProductImage product={product} />
         {product.tag && (
           <span className="absolute top-3 left-3 px-2 py-1 bg-gray-900 text-white text-xs rounded-full">
             {product.tag}

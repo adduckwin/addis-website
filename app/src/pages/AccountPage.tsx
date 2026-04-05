@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { 
-  User, 
-  ShoppingBag, 
-  Star, 
-  Gift, 
-  MapPin, 
-  CreditCard, 
-  Settings, 
+import {
+  User,
+  ShoppingBag,
+  Star,
+  Gift,
+  MapPin,
+  CreditCard,
+  Settings,
   LogOut,
   ChevronRight,
   Package,
@@ -17,7 +17,8 @@ import {
   Clock,
   AlertCircle,
   Edit,
-  Plus
+  Plus,
+  type LucideIcon
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
@@ -88,7 +89,7 @@ export default function AccountPage() {
   }
 
   const getStatusBadge = (status: string) => {
-    const statuses: Record<string, { label: string; className: string; icon: any }> = {
+    const statuses: Record<string, { label: string; className: string; icon: LucideIcon }> = {
       pending: { label: 'Ожидает подтверждения', className: 'bg-[#FEF3C7] text-[#92400E]', icon: Clock },
       processing: { label: 'В обработке', className: 'bg-[#F0F9FF] text-[#0369A1]', icon: Package },
       shipped: { label: 'Отправлен', className: 'bg-[#F5F3FF] text-[#7C3AED]', icon: Truck },

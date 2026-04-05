@@ -10,37 +10,58 @@ const categories = [
     name: 'Для эспрессо',
     count: '15 позиций',
     description: 'Классические и авторские смеси',
+    image: '/images/category-espresso.jpg',
   },
   {
     id: 'filter',
     name: 'Для фильтра',
     count: '15 позиций',
     description: 'Моносорта для альтернативы',
+    image: '/images/category-filter.jpg',
   },
   {
     id: 'drip',
     name: 'Дрип-пакеты',
     count: '10 позиций',
     description: 'Удобный формат для офиса',
+    image: '/images/category-drip.jpg',
   },
   {
     id: 'tea',
     name: 'Чай',
     count: '30 позиций',
     description: 'Чёрный, зелёный, белый, улун, пуэр',
+    image: '/images/products.png',
   },
 ]
 
-// Category placeholder
-const CategoryPlaceholder = () => (
-  <div className="aspect-[4/3] flex items-center justify-center bg-[#E4DCD0]/20">
-    <div className="text-center">
-      <AddisLogo size={48} showText={false} variant="black" className="opacity-20" />
-      <p className="text-black/30 text-xs mt-3 font-medium tracking-tight">Image</p>
-      <p className="text-black/20 text-[10px]">400 × 300</p>
+// Category image component
+const CategoryImage = ({ src, name }: { src?: string; name: string }) => {
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt={name}
+        className="w-full aspect-[4/3] object-cover"
+        onError={(e) => {
+          const target = e.target as HTMLImageElement
+          target.style.display = 'none'
+          const placeholder = target.nextElementSibling as HTMLElement | null
+          if (placeholder) placeholder.style.display = 'flex'
+        }}
+      />
+    )
+  }
+  return (
+    <div className="aspect-[4/3] flex items-center justify-center bg-[#E4DCD0]/20">
+      <div className="text-center">
+        <AddisLogo size={48} showText={false} variant="black" className="opacity-20" />
+        <p className="text-black/30 text-xs mt-3 font-medium tracking-tight">Image</p>
+        <p className="text-black/20 text-[10px]">400 × 300</p>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default function Categories() {
   const ref = useRef(null)
@@ -83,8 +104,20 @@ export default function Categories() {
                 to={`/category/${category.id}`}
                 className="group relative bg-white overflow-hidden border border-black/5 hover:border-black/10 transition-all duration-300 hover:shadow-lg block"
               >
-                {/* Image Placeholder */}
-                <CategoryPlaceholder />
+                {/* Image */}
+                <div className="relative">
+                  <CategoryImage src={category.image} name={category.name} />
+                  <div
+                    className="absolute inset-0 aspect-[4/3] hidden items-center justify-center bg-[#E4DCD0]/20"
+                    style={{ display: 'none' }}
+                  >
+                    <div className="text-center">
+                      <AddisLogo size={48} showText={false} variant="black" className="opacity-20" />
+                      <p className="text-black/30 text-xs mt-3 font-medium tracking-tight">Image</p>
+                      <p className="text-black/20 text-[10px]">400 × 300</p>
+                    </div>
+                  </div>
+                </div>
                 
                 {/* Content */}
                 <div className="p-6 bg-white border-t border-black/5">

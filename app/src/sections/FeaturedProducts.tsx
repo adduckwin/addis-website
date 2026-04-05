@@ -5,16 +5,27 @@ import { Star, ArrowRight } from 'lucide-react'
 import { getBestsellers, getNewProducts, products, type Product } from '@/data/products'
 import { AddisLogo } from '@/components/AddisLogo'
 
-// Product placeholder
-const ProductPlaceholder = () => (
-  <div className="aspect-square bg-[#E4DCD0]/20 flex items-center justify-center">
-    <div className="text-center">
-      <AddisLogo size={40} showText={false} variant="black" className="opacity-20" />
-      <p className="text-black/30 text-xs mt-2 font-medium tracking-tight">Product</p>
-      <p className="text-black/20 text-[10px]">400 × 400</p>
+// Product image component
+const ProductImage = ({ product }: { product: Product }) => {
+  if (product.image) {
+    return (
+      <img
+        src={product.image}
+        alt={product.name}
+        className="w-full aspect-square object-cover"
+      />
+    )
+  }
+  return (
+    <div className="aspect-square bg-[#E4DCD0]/20 flex items-center justify-center">
+      <div className="text-center">
+        <AddisLogo size={40} showText={false} variant="black" className="opacity-20" />
+        <p className="text-black/30 text-xs mt-2 font-medium tracking-tight">Product</p>
+        <p className="text-black/20 text-[10px]">400 × 400</p>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 // Product card
 const ProductCard = ({ product, index }: { product: Product; index: number }) => (
@@ -31,9 +42,9 @@ const ProductCard = ({ product, index }: { product: Product; index: number }) =>
       to={`/product/${product.id}`}
       className="group block bg-white overflow-hidden border border-black/5 hover:border-black/10 hover:shadow-lg transition-all duration-300"
     >
-      {/* Image Placeholder */}
+      {/* Image */}
       <div className="relative overflow-hidden">
-        <ProductPlaceholder />
+        <ProductImage product={product} />
         {product.tag && (
           <div className="absolute top-4 left-4 px-3 py-1.5 bg-black text-white text-xs font-semibold tracking-tight">
             {product.tag}

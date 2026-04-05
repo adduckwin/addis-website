@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Star, ArrowLeft, ShoppingBag, Check, Package, Coffee, Info, Plus, Minus } from 'lucide-react'
+import { Star, ArrowLeft, ShoppingBag, Check, Package, Coffee, Info, Plus, Minus, Image as ImageIcon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { getProductById, products, type Product } from '@/data/products'
 import { useCartStore } from '@/store/cartStore'
@@ -9,19 +9,24 @@ import Header from '@/sections/Header'
 import Footer from '@/sections/Footer'
 import { cn } from '@/lib/utils'
 
-// Product placeholder component
-const ProductPlaceholder = ({ size = 'large' }: { size?: 'small' | 'large' }) => {
-  const dimensions = size === 'large' ? '500 × 500' : '400 × 400'
+// Product image component
+const ProductImage = ({ product }: { product?: Product }) => {
+  if (product?.image) {
+    return (
+      <img
+        src={product.image}
+        alt={product.name}
+        className="w-full aspect-square object-cover rounded-2xl"
+      />
+    )
+  }
   return (
     <div className="aspect-square bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl flex items-center justify-center border border-gray-100">
       <div className="text-center">
         <div className="w-20 h-20 mx-auto mb-4 bg-gray-200 rounded-xl flex items-center justify-center">
-          <svg viewBox="0 0 40 40" fill="none" className="w-10 h-10">
-            <rect x="10" y="8" width="20" height="24" rx="2" fill="#D1D5DB" />
-          </svg>
+          <ImageIcon className="w-10 h-10 text-gray-300" />
         </div>
-        <p className="text-gray-400 text-sm">Product Image</p>
-        <p className="text-gray-300 text-xs mt-1">{dimensions} px</p>
+        <p className="text-gray-400 text-sm">Нет изображения</p>
       </div>
     </div>
   )
@@ -44,16 +49,7 @@ const RelatedProducts = ({ currentProduct }: { currentProduct: Product }) => {
               to={`/product/${product.id}`}
               className="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all"
             >
-              <div className="aspect-square bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-12 h-12 mx-auto mb-2 bg-gray-200 rounded-lg flex items-center justify-center">
-                    <svg viewBox="0 0 40 40" fill="none" className="w-6 h-6">
-                      <rect x="10" y="8" width="20" height="24" rx="2" fill="#D1D5DB" />
-                    </svg>
-                  </div>
-                  <p className="text-gray-400 text-xs">Image</p>
-                </div>
-              </div>
+              <ProductImage product={product} />
               <div className="p-4">
                 <p className="text-gray-400 text-sm">{product.type}</p>
                 <h3 className="font-semibold text-gray-900 group-hover:text-gray-600 transition-colors">
@@ -147,7 +143,7 @@ export default function ProductPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <ProductPlaceholder size="large" />
+              <ProductImage product={product} />
             </motion.div>
 
             {/* Info */}

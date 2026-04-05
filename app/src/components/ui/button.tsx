@@ -59,4 +59,6 @@ function Button({
   )
 }
 
+/* eslint-disable react-refresh/only-export-components */
 export { Button, buttonVariants }
+/* eslint-enable react-refresh/only-export-components */

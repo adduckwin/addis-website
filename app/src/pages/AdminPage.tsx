@@ -60,6 +60,7 @@ import { blogPosts } from '@/data/blog'
 import { WHOLESALE_TIERS } from '@/store/cartStore'
 import Header from '@/sections/Header'
 import Footer from '@/sections/Footer'
+import MediaGallery from '@/pages/MediaGallery'
 import { cn } from '@/lib/utils'
 import { format, subDays, isWithinInterval, parseISO } from 'date-fns'
 import { ru } from 'date-fns/locale'
@@ -309,6 +310,7 @@ export default function AdminPage() {
                       { id: 'users', label: 'Пользователи', icon: Users },
                       { id: 'retail', label: 'Розница', icon: Store },
                       { id: 'discounts', label: 'Скидки', icon: Percent },
+                      { id: 'media', label: 'Медиа', icon: ImageIcon },
                       { id: 'settings', label: 'Настройки', icon: Settings },
                     ].map((item) => {
                       const Icon = item.icon
@@ -349,6 +351,7 @@ export default function AdminPage() {
                 {activeTab === 'users' && <UsersTab key="users" />}
                 {activeTab === 'retail' && <RetailTab key="retail" />}
                 {activeTab === 'discounts' && <DiscountsTab key="discounts" />}
+                {activeTab === 'media' && <MediaGallery key="media" />}
                 {activeTab === 'settings' && <SettingsTab key="settings" />}
               </AnimatePresence>
             </motion.div>

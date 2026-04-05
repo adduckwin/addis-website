@@ -11,19 +11,19 @@ import { AddisLogo } from '@/components/AddisLogo'
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
-  const [isAdmin, setIsAdmin] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(() => {
+    return sessionStorage.getItem('admin_session') === 'active'
+  })
   const [isScrolled, setIsScrolled] = useState(false)
   const location = useLocation()
   const isHomePage = location.pathname === '/'
   const isAccountPage = ['/account', '/wholesale-account', '/admin'].includes(location.pathname)
 
-  // Проверка авторизации админа
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
-    const adminSession = sessionStorage.getItem('admin_session')
-    if (adminSession === 'active') {
-      setIsAdmin(true)
-    }
+    setIsAdmin(sessionStorage.getItem('admin_session') === 'active')
   }, [location])
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   // Отслеживание скролла
   useEffect(() => {

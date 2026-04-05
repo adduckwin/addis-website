@@ -24,30 +24,30 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
-  const [attempts, setAttempts] = useState(0)
-  const [isLocked, setIsLocked] = useState(false)
-  const [lockoutEnd, setLockoutEnd] = useState<number | null>(null)
-  const [timeLeft, setTimeLeft] = useState(0)
 
-  // Проверка блокировки при загрузке
-  useEffect(() => {
+  // Проверка блокировки при загрузке — вынесена из useEffect
+  /* eslint-disable react-hooks/purity */
+  const initialLockout = (() => {
     const lockoutData = localStorage.getItem('admin_lockout')
     if (lockoutData) {
       const { endTime } = JSON.parse(lockoutData)
       if (Date.now() < endTime) {
-        setIsLocked(true)
-        setLockoutEnd(endTime)
-      } else {
-        localStorage.removeItem('admin_lockout')
-        localStorage.removeItem('admin_attempts')
+        return { isLocked: true, lockoutEnd: endTime }
       }
+      localStorage.removeItem('admin_lockout')
+      localStorage.removeItem('admin_attempts')
     }
-    
+    return { isLocked: false, lockoutEnd: null }
+  })()
+  /* eslint-enable react-hooks/purity */
+
+  const [attempts, setAttempts] = useState(() => {
     const savedAttempts = localStorage.getItem('admin_attempts')
-    if (savedAttempts) {
-      setAttempts(parseInt(savedAttempts, 10))
-    }
-  }, [])
+    return savedAttempts ? parseInt(savedAttempts, 10) : 0
+  })
+  const [isLocked, setIsLocked] = useState(initialLockout.isLocked)
+  const [lockoutEnd, setLockoutEnd] = useState<number | null>(initialLockout.lockoutEnd)
+  const [timeLeft, setTimeLeft] = useState(0)
 
   // Таймер обратного отсчёта
   useEffect(() => {
