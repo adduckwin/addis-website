@@ -1,415 +1,1221 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADDIS | Скоро здесь будет что-то крутое</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --brand-text: #0a0a0a;
-            --brand-text-muted: #6b7280;
-            --brand-text-secondary: #374151;
-            --brand-gradient: linear-gradient(135deg, #111111 0%, #555555 100%);
-            --card-bg: #ffffff;
-            --card-border: #e5e7eb;
-            --page-bg: #ffffff;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Addis — Specialty кофе для бизнеса и дома</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;font-size:16px;line-height:1.5;color:#1A1A1A;background:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+input,textarea,select{font-family:inherit;font-size:inherit}
+ul,ol{list-style:none}
+h1,h2,h3,h4,h5,h6{line-height:1.1;font-weight:700}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid #C8863D;outline-offset:2px}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+.container{max-width:1280px;margin:0 auto;padding:0 24px}
+.container--narrow{max-width:800px}
 
-        body {
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            background-color: var(--page-bg);
-            background-image: url('images/bg-fallback.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: var(--brand-text);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow-x: hidden;
-            transition: background-image 0.5s ease;
-        }
+.section{padding:80px 0}
+.section--alt{background:#F9F7F4}
+.section--cream{background:#F5F0E8}
 
-        .bg-watermark {
-            position: fixed; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) rotate(-8deg);
-            font-size: clamp(30px, 10vw, 110px); font-weight: 900;
-            color: var(--brand-text); opacity: 0.03;
-            white-space: nowrap; pointer-events: none; z-index: 1;
-            letter-spacing: 0.1em; user-select: none;
-        }
+.section-eyebrow{font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:#C8863D;margin-bottom:16px}
+.section-title{font-family:Georgia,'Times New Roman',serif;font-size:40px;font-weight:700;color:#2C1810;margin-bottom:16px}
+.section-subtitle{font-size:18px;color:#5C5047;line-height:1.75;max-width:640px}
+.section-header{margin-bottom:48px}
+.section-header--center{text-align:center}
+.section-header--center .section-subtitle{margin:0 auto}
 
-        .brand-grid {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 2; pointer-events: none; opacity: 0.04;
-            background-image: linear-gradient(rgba(0,0,0,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.3) 1px, transparent 1px);
-            background-size: 60px 60px;
-        }
+ @media(min-width:768px){.section-title{font-size:52px}.section{padding:120px 0}}
+ @media(min-width:1024px){.section{padding:140px 0}}
 
-        .geo-element { position: fixed; z-index: 3; pointer-events: none; opacity: 0.1; }
-        .geo-element--circle { width: 140px; height: 140px; border: 2px solid var(--brand-text); border-radius: 50%; top: 12%; right: 8%; animation: rotateGeo 24s linear infinite; }
-        .geo-element--square { width: 90px; height: 90px; border: 2px solid var(--brand-text); bottom: 18%; right: 12%; animation: rotateGeo 18s linear infinite reverse; }
-        @keyframes rotateGeo { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.hero{position:relative;padding:60px 0 80px;background:linear-gradient(135deg,#F5F0E8 0%,#FAF7F2 100%);min-height:85vh;display:flex;align-items:center}
+ @media(min-width:768px){.hero{padding:80px 0 120px;min-height:90vh}}
+.hero__inner{display:grid;grid-template-columns:1fr;gap:40px;align-items:center}
+ @media(min-width:768px){.hero__inner{grid-template-columns:1fr 1fr;gap:60px}}
 
-        canvas#particleCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; pointer-events: none; }
+.hero__badge{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(200,134,61,0.12);color:#A86E2E;border-radius:999px;font-size:14px;font-weight:600;margin-bottom:24px}
+.hero__title{font-family:Georgia,'Times New Roman',serif;font-size:40px;font-weight:700;color:#2C1810;line-height:1.15;margin-bottom:24px}
+ @media(min-width:640px){.hero__title{font-size:56px}}
+ @media(min-width:1024px){.hero__title{font-size:68px}}
+.hero__desc{font-size:18px;color:#5C5047;line-height:1.75;margin-bottom:32px;max-width:520px}
+.hero__actions{display:flex;flex-wrap:wrap;gap:16px}
+.hero__stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
+.hero__stat{text-align:center}
+.hero__stat-value{font-family:Georgia,serif;font-size:28px;font-weight:700;color:#2C1810}
+.hero__stat-label{font-size:13px;color:#8A7E74;margin-top:4px}
+.hero__visual{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/3;background:linear-gradient(145deg,#D4C5B2,#A89080)}
+.hero__visual-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hero__visual-circle{width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.hero__visual-circle span{font-family:Georgia,serif;font-size:48px;font-weight:700;color:rgba(255,255,255,0.6)}
+.hero__visual-text{color:rgba(255,255,255,0.5);font-size:14px;font-weight:500;text-transform:uppercase;letter-spacing:0.15em}
 
-        .container { position: relative; z-index: 10; text-align: center; padding: 40px 24px; max-width: 680px; width: 100%; }
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;font-size:14px;font-weight:600;line-height:1.5;border-radius:8px;transition:all 0.25s ease;white-space:nowrap;border:2px solid transparent;cursor:pointer}
+.btn--primary{background:#2C1810;color:#F5F0E8;border-color:#2C1810}
+.btn--primary:hover{background:#3D2418;border-color:#3D2418;transform:translateY(-1px);box-shadow:0 4px 12px rgba(44,24,16,0.08)}
+.btn--secondary{background:#C8863D;color:#fff;border-color:#C8863D}
+.btn--secondary:hover{background:#A86E2E;border-color:#A86E2E;transform:translateY(-1px);box-shadow:0 4px 12px rgba(44,24,16,0.08)}
+.btn--outline{background:transparent;color:#2C1810;border-color:#E5DDD4}
+.btn--outline:hover{border-color:#2C1810;background:#FAF7F2}
+.btn--lg{padding:16px 32px;font-size:16px;border-radius:12px}
+.btn--sm{padding:8px 16px;font-size:12px}
+.btn--full{width:100%}
 
-        .brand-logo { margin: 0 auto 28px; animation: fadeInUp 0.8s ease-out both; }
-        .brand-logo__mark { width: 72px; height: 72px; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; position: relative; }
-        .custom-logo-img { max-width: 100%; max-height: 100%; object-fit: contain; display: none; }
-        .brand-logo__text { font-size: 13px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: var(--brand-text); }
+.badge{display:inline-flex;align-items:center;padding:4px 12px;font-size:12px;font-weight:500;border-radius:999px;line-height:1.4}
+.badge--secondary{background:rgba(200,134,61,0.12);color:#A86E2E}
+.badge--success{background:rgba(74,124,89,0.1);color:#4A7C59}
 
-        .badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(0, 0, 0, 0.05); border: 1px solid rgba(0, 0, 0, 0.15);
-            border-radius: 100px; padding: 7px 18px; font-size: 11px; font-weight: 600;
-            color: var(--brand-text); margin-bottom: 24px;
-            animation: fadeInUp 0.8s ease-out 0.1s both; letter-spacing: 1.5px; text-transform: uppercase;
-        }
-        .badge .pulse { width: 7px; height: 7px; background: var(--brand-text); border-radius: 50%; position: relative; }
-        .badge .pulse::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 1px solid var(--brand-text); animation: pulseRing 2s ease-out infinite; }
-        @keyframes pulseRing { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(2); opacity: 0; } }
+.chip{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;font-size:14px;font-weight:500;border-radius:999px;border:1px solid #E5DDD4;background:#fff;color:#5C5047;cursor:pointer;transition:all 0.15s ease;user-select:none}
+.chip:hover,.chip--active{border-color:#2C1810;color:#2C1810;background:#FAF7F2}
+.chip--active{background:#2C1810;color:#F5F0E8;border-color:#2C1810}
 
-        h1 { font-size: clamp(32px, 7vw, 52px); font-weight: 900; line-height: 1.05; margin-bottom: 14px; animation: fadeInUp 0.8s ease-out 0.2s both; letter-spacing: -1.5px; color: var(--brand-text); }
-        h1 .accent { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block; }
-        .subtitle { font-size: clamp(15px, 2.5vw, 18px); color: var(--brand-text-muted); line-height: 1.6; margin-bottom: 36px; font-weight: 400; animation: fadeInUp 0.8s ease-out 0.3s both; }
+.grid-2{display:grid;grid-template-columns:1fr;gap:24px}
+.grid-3{display:grid;grid-template-columns:1fr;gap:24px}
+.grid-4{display:grid;grid-template-columns:1fr;gap:24px}
+.grid-2-1{display:grid;grid-template-columns:1fr;gap:32px}
+ @media(min-width:640px){.grid-2{grid-template-columns:1fr 1fr}}
+ @media(min-width:768px){.grid-3{grid-template-columns:1fr 1fr 1fr}.grid-2-1{grid-template-columns:2fr 1fr}}
+ @media(min-width:1024px){.grid-4{grid-template-columns:repeat(4,1fr)}}
 
-        .brand-divider { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 32px; animation: fadeInUp 0.8s ease-out 0.35s both; }
-        .brand-divider__line { width: 40px; height: 1px; background: linear-gradient(90deg, transparent, #d1d5db, transparent); }
-        .brand-divider__diamond { width: 7px; height: 7px; background: var(--brand-text); transform: rotate(45deg); opacity: 0.7; }
+.feature-card{padding:32px;border-radius:16px;background:#fff;border:1px solid #F0EBE4;transition:all 0.25s ease}
+.feature-card:hover{box-shadow:0 8px 24px rgba(44,24,16,0.12);transform:translateY(-2px)}
+.feature-card__icon{width:48px;height:48px;border-radius:12px;background:#F5F0E8;display:flex;align-items:center;justify-content:center;margin-bottom:20px;font-size:24px}
+.feature-card__title{font-size:18px;font-weight:600;margin-bottom:8px;color:#2C1810}
+.feature-card__text{font-size:14px;color:#5C5047;line-height:1.75}
 
-        .progress-section { margin-bottom: 36px; animation: fadeInUp 0.8s ease-out 0.4s both; }
-        .progress-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 12px; }
-        .progress-label__text { color: var(--brand-text-muted); font-weight: 500; letter-spacing: 0.5px; }
-        .progress-label__percent { color: var(--brand-text); font-weight: 700; }
-        .progress-bar { width: 100%; height: 4px; background: #f3f4f6; border-radius: 100px; overflow: hidden; }
-        .progress-fill { height: 100%; width: 0%; background: var(--brand-gradient); border-radius: 100px; transition: width 2s cubic-bezier(0.4, 0, 0.2, 1); }
+.segment-card{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:3/4;cursor:pointer}
+.segment-card__bg{position:absolute;inset:0;transition:transform 0.4s ease}
+.segment-card:hover .segment-card__bg{transform:scale(1.05)}
+.segment-card__overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(26,14,8,0.85) 100%)}
+.segment-card__content{position:absolute;bottom:0;left:0;right:0;padding:32px;color:#F5F0E8}
+.segment-card__title{font-family:Georgia,serif;font-size:20px;font-weight:700;margin-bottom:8px}
+.segment-card__desc{font-size:14px;color:rgba(255,255,255,0.8);line-height:1.75}
 
-        .cta-card {
-            position: relative; background: var(--card-bg); border: 1px solid var(--card-border);
-            border-radius: 20px; padding: 32px 28px; animation: fadeInUp 0.8s ease-out 0.5s both;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); transition: all 0.35s ease; overflow: hidden;
-        }
-        .cta-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--brand-gradient); opacity: 0.6; }
-        .cta-card__corner { position: absolute; width: 18px; height: 18px; opacity: 0.2; }
-        .cta-card__corner--tl { top: 10px; left: 10px; border-top: 2px solid var(--brand-text); border-left: 2px solid var(--brand-text); }
-        .cta-card__corner--br { bottom: 10px; right: 10px; border-bottom: 2px solid var(--brand-text); border-right: 2px solid var(--brand-text); }
-        .cta-card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08); border-color: rgba(0,0,0,0.2); }
+.process-step{display:flex;gap:24px;padding:32px 0;border-bottom:1px solid #F0EBE4}
+.process-step:last-child{border-bottom:none}
+.process-step__number{font-family:Georgia,serif;font-size:40px;font-weight:700;color:#C8863D;line-height:1;min-width:48px}
+.process-step__title{font-size:18px;font-weight:600;margin-bottom:8px}
+.process-step__text{font-size:14px;color:#5C5047;line-height:1.75}
 
-        .cta-card__icon { width: 46px; height: 46px; margin: 0 auto 14px; background: var(--brand-gradient); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-        .cta-card__title { font-size: 18px; font-weight: 700; margin-bottom: 6px; color: var(--brand-text); }
-        .cta-card__desc { font-size: 14px; color: var(--brand-text-muted); margin-bottom: 22px; line-height: 1.5; }
+.timeline{position:relative;padding-left:48px}
+.timeline::before{content:'';position:absolute;left:19px;top:0;bottom:0;width:2px;background:#E5DDD4}
+.timeline__item{position:relative;padding-bottom:40px}
+.timeline__item:last-child{padding-bottom:0}
+.timeline__dot{position:absolute;left:-48px;top:4px;width:18px;height:18px;border-radius:50%;background:#C8863D;border:3px solid #fff;box-shadow:0 0 0 2px #C8863D}
+.timeline__title{font-size:18px;font-weight:600;margin-bottom:8px}
+.timeline__text{font-size:14px;color:#5C5047;line-height:1.75}
 
-        .cta-button {
-            display: inline-flex; align-items: center; gap: 10px; padding: 13px 28px;
-            background: var(--brand-gradient); color: #ffffff; text-decoration: none;
-            border-radius: 11px; font-size: 15px; font-weight: 600; transition: all 0.3s ease;
-            border: none; cursor: pointer; position: relative; overflow: hidden;
-        }
-        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2); }
-        .cta-button svg { transition: transform 0.3s ease; }
-        .cta-button:hover svg { transform: translateX(4px); }
+.quote-card{padding:40px;background:#F5F0E8;border-radius:16px;border-left:4px solid #C8863D}
+.quote-card__text{font-family:Georgia,serif;font-size:20px;line-height:1.25;color:#2C1810;margin-bottom:24px}
+.quote-card__author{font-weight:600}
+.quote-card__role{font-size:14px;color:#8A7E74}
 
-        .cta-secondary { display: inline-flex; align-items: center; gap: 6px; margin-top: 18px; color: var(--brand-text-muted); text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
-        .cta-secondary:hover { color: var(--brand-text); }
+.catalog-products{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px}
 
-        .footer { margin-top: 28px; animation: fadeInUp 0.8s ease-out 0.6s both; }
-        .footer__text { font-size: 12px; color: #9ca3af; }
-        .footer__brand { color: var(--brand-text); opacity: 0.8; font-weight: 600; }
+.product-card{background:#fff;border-radius:12px;border:1px solid #F0EBE4;overflow:hidden;transition:all 0.25s ease;cursor:pointer}
+.product-card:hover{box-shadow:0 8px 32px rgba(44,24,16,0.12);transform:translateY(-3px)}
+.product-card__image{aspect-ratio:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.product-card__body{padding:20px}
+.product-card__category{font-size:12px;color:#8A7E74;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px}
+.product-card__name{font-size:16px;font-weight:600;margin-bottom:8px;color:#2C1810}
+.product-card__profile{display:flex;gap:12px;margin-bottom:12px}
+.product-card__param{font-size:12px;color:#8A7E74}
+.product-card__price{font-size:18px;font-weight:700;color:#2C1810}
+.product-card__price-unit{font-size:12px;color:#8A7E74;font-weight:400}
+.product-card__actions{display:flex;gap:8px;margin-top:16px}
 
-        .settings-trigger {
-            position: fixed; bottom: 20px; right: 20px; width: 40px; height: 40px;
-            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08); z-index: 100; transition: all 0.3s; font-size: 18px;
-        }
-        .settings-trigger:hover { transform: rotate(30deg); box-shadow: 0 4px 15px rgba(0,0,0,0.12); }
+.taste-bar{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.taste-bar__label{font-size:12px;color:#8A7E74;min-width:72px}
+.taste-bar__track{flex:1;height:4px;background:#F0EBE4;border-radius:2px;overflow:hidden}
+.taste-bar__fill{height:100%;border-radius:2px;background:#C8863D}
 
-        .settings-panel {
-            position: fixed; bottom: 20px; right: 20px; width: 320px; max-height: 90vh; overflow-y: auto;
-            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px;
-            padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); z-index: 99;
-            transform: translateY(20px); opacity: 0; pointer-events: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .settings-panel.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
-        .settings-panel h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: var(--brand-text); }
-        .settings-group { margin-bottom: 14px; }
-        .settings-group label { display: block; font-size: 12px; color: var(--brand-text-muted); margin-bottom: 6px; font-weight: 500; }
-        .settings-group input[type="text"], .settings-group input[type="file"] {
-            width: 100%; padding: 10px 12px; border: 1px solid var(--card-border);
-            border-radius: 8px; font-size: 13px; font-family: inherit; background: #f9fafb; transition: border 0.2s;
-        }
-        .settings-group input:focus { outline: none; border-color: var(--brand-text); background: #fff; }
-        .settings-btn-group { display: flex; gap: 10px; margin-top: 18px; }
-        .settings-btn-apply, .settings-btn-reset { flex: 1; padding: 10px; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-        .settings-btn-apply { background: var(--brand-gradient); color: #fff; }
-        .settings-btn-apply:hover { opacity: 0.9; transform: translateY(-1px); }
-        .settings-btn-reset { background: #f3f4f6; color: var(--brand-text-muted); }
-        .settings-btn-reset:hover { background: #e5e7eb; }
+.pdp-layout{display:grid;grid-template-columns:1fr;gap:40px}
+ @media(min-width:1024px){.pdp-layout{grid-template-columns:1fr 1fr;gap:64px}}
+.pdp-image{aspect-ratio:1;border-radius:16px;display:flex;align-items:center;justify-content:center}
+.pdp-info__title{font-family:Georgia,serif;font-size:32px;font-weight:700;color:#2C1810;margin-bottom:8px}
+ @media(min-width:768px){.pdp-info__title{font-size:42px}}
+.pdp-info__subtitle{font-size:18px;color:#5C5047;margin-bottom:24px}
+.pdp-info__price{font-size:28px;font-weight:700;color:#2C1810;margin-bottom:24px}
+.pdp-facts{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:24px;background:#FAF7F2;border-radius:12px;margin-bottom:32px}
+.pdp-fact__label{font-size:12px;color:#8A7E74;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px}
+.pdp-fact__value{font-size:14px;font-weight:600;color:#2C1810}
 
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.breadcrumbs{display:flex;align-items:center;gap:8px;font-size:14px;color:#8A7E74;padding:24px 0;flex-wrap:wrap}
+.breadcrumbs__link{color:#5C5047;transition:color 0.15s ease;cursor:pointer}
+.breadcrumbs__link:hover{color:#2C1810}
+.breadcrumbs__sep{color:#B5ADA5}
+.breadcrumbs__current{color:#1A1A1A}
 
-        @media (max-width: 600px) {
-            .container { padding: 32px 16px; }
-            .cta-card { padding: 24px 18px; }
-            .settings-panel { width: calc(100% - 40px); right: 20px; bottom: 70px; }
-        }
-    </style>
+.cta-banner{padding:64px 32px;background:#2C1810;border-radius:24px;color:#F5F0E8;text-align:center;overflow:hidden}
+.cta-banner__title{font-family:Georgia,serif;font-size:28px;font-weight:700;margin-bottom:16px}
+ @media(min-width:768px){.cta-banner__title{font-size:40px}}
+.cta-banner__text{font-size:16px;color:#B5ADA5;margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto}
+.cta-banner__actions{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+
+.article-card{background:#fff;border-radius:12px;border:1px solid #F0EBE4;overflow:hidden;transition:all 0.25s ease;cursor:pointer}
+.article-card:hover{box-shadow:0 8px 32px rgba(44,24,16,0.12);transform:translateY(-2px)}
+.article-card__image{aspect-ratio:16/9}
+.article-card__body{padding:20px}
+.article-card__category{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:#C8863D;margin-bottom:8px}
+.article-card__title{font-size:16px;font-weight:600;margin-bottom:8px;color:#2C1810;line-height:1.25}
+.article-card__excerpt{font-size:14px;color:#5C5047;line-height:1.75;margin-bottom:16px}
+.article-card__meta{font-size:12px;color:#8A7E74}
+
+.case-card{background:#fff;border-radius:16px;border:1px solid #F0EBE4;overflow:hidden;transition:all 0.25s ease}
+.case-card:hover{box-shadow:0 8px 32px rgba(44,24,16,0.12)}
+.case-card__image{aspect-ratio:16/9}
+.case-card__body{padding:32px}
+.case-card__label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:#C8863D;margin-bottom:12px}
+.case-card__title{font-family:Georgia,serif;font-size:20px;font-weight:700;margin-bottom:12px;color:#2C1810}
+.case-card__text{font-size:14px;color:#5C5047;line-height:1.75;margin-bottom:24px}
+.case-card__metrics{display:flex;gap:24px;padding-top:24px;border-top:1px solid #F0EBE4;flex-wrap:wrap}
+.case-card__metric-value{font-family:Georgia,serif;font-size:20px;font-weight:700;color:#2C1810}
+.case-card__metric-label{font-size:12px;color:#8A7E74}
+
+.faq-item{border-bottom:1px solid #F0EBE4}
+.faq-question{display:flex;align-items:center;justify-content:space-between;width:100%;padding:24px 0;font-size:16px;font-weight:600;color:#2C1810;text-align:left;cursor:pointer;transition:color 0.15s ease}
+.faq-question:hover{color:#C8863D}
+.faq-question__icon{width:24px;height:24px;transition:transform 0.25s ease;flex-shrink:0;margin-left:16px}
+.faq-item--open .faq-question__icon{transform:rotate(45deg)}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.25s ease}
+.faq-item--open .faq-answer{max-height:500px}
+.faq-answer__inner{padding-bottom:24px;font-size:14px;color:#5C5047;line-height:1.75}
+
+.page-404{min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:64px 24px}
+.page-404__code{font-family:Georgia,serif;font-size:80px;font-weight:700;color:#E5DDD4;line-height:1;margin-bottom:24px}
+.page-404__title{font-family:Georgia,serif;font-size:28px;font-weight:700;margin-bottom:16px}
+.page-404__text{font-size:16px;color:#5C5047;max-width:400px;margin-bottom:32px}
+
+.solution-card{padding:40px;background:#fff;border-radius:16px;border:1px solid #F0EBE4;transition:all 0.25s ease}
+.solution-card:hover{box-shadow:0 8px 24px rgba(44,24,16,0.12)}
+.solution-card__icon{width:56px;height:56px;border-radius:16px;background:#F5F0E8;display:flex;align-items:center;justify-content:center;margin-bottom:24px;font-size:28px}
+.solution-card__title{font-family:Georgia,serif;font-size:20px;font-weight:700;margin-bottom:12px;color:#2C1810}
+.solution-card__list{display:flex;flex-direction:column;gap:8px;margin:16px 0}
+.solution-card__list-item{display:flex;align-items:flex-start;gap:8px;font-size:14px;color:#5C5047;line-height:1.75}
+.solution-card__list-item::before{content:'\2713';color:#4A7C59;font-weight:700;flex-shrink:0;margin-top:1px}
+
+.form-group{margin-bottom:24px}
+.form-label{display:block;font-size:14px;font-weight:500;color:#1A1A1A;margin-bottom:8px}
+.form-input,.form-textarea,.form-select{width:100%;padding:12px 16px;font-size:16px;color:#1A1A1A;background:#fff;border:1px solid #E5DDD4;border-radius:8px;transition:border-color 0.15s ease,box-shadow 0.15s ease}
+.form-input:focus,.form-textarea:focus,.form-select:focus{outline:none;border-color:#C8863D;box-shadow:0 0 0 3px rgba(200,134,61,0.15)}
+.form-textarea{resize:vertical;min-height:120px}
+.form-hint{font-size:12px;color:#8A7E74;margin-top:4px}
+.form-row{display:grid;grid-template-columns:1fr;gap:16px}
+ @media(min-width:768px){.form-row{grid-template-columns:1fr 1fr}}
+
+.page{display:none}
+.page--active{display:block}
+
+.notification{position:fixed;bottom:24px;right:24px;padding:16px 24px;background:#2C1810;color:#F5F0E8;border-radius:12px;box-shadow:0 16px 48px rgba(44,24,16,0.16);z-index:500;transform:translateY(120%);transition:transform 0.25s ease;font-size:14px;font-weight:500}
+.notification--visible{transform:translateY(0)}
+
+.back-to-top{position:fixed;bottom:24px;left:24px;width:44px;height:44px;border-radius:50%;background:#2C1810;color:#F5F0E8;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(44,24,16,0.12);z-index:100;opacity:0;transform:translateY(20px);transition:all 0.25s ease;cursor:pointer}
+.back-to-top--visible{opacity:1;transform:translateY(0)}
+.back-to-top:hover{background:#C8863D}
+
+.header{position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.97);border-bottom:1px solid #F0EBE4}
+.header__inner{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:1520px;margin:0 auto;padding:0 24px}
+.header__logo{font-family:Georgia,serif;font-size:28px;font-weight:700;color:#2C1810;letter-spacing:-0.02em}
+.header__nav{display:none}
+.header__nav-list{display:flex;align-items:center;gap:4px}
+.header__nav-link{padding:8px 12px;font-size:14px;font-weight:500;color:#5C5047;border-radius:8px;transition:all 0.15s ease;cursor:pointer}
+.header__nav-link:hover,.header__nav-link--active{color:#2C1810;background:#FAF7F2}
+.header__actions{display:flex;align-items:center;gap:8px}
+.header__burger{display:flex;flex-direction:column;gap:5px;padding:8px;cursor:pointer}
+.header__burger span{display:block;width:22px;height:2px;background:#2C1810;border-radius:2px;transition:all 0.25s ease}
+.header__burger--open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.header__burger--open span:nth-child(2){opacity:0}
+.header__burger--open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+ @media(min-width:1024px){.header__nav{display:flex}.header__burger{display:none}}
+
+.mobile-nav{position:fixed;top:72px;left:0;right:0;bottom:0;background:#fff;z-index:300;padding:24px;transform:translateX(100%);transition:transform 0.25s ease;overflow-y:auto}
+.mobile-nav--open{transform:translateX(0)}
+.mobile-nav__list{display:flex;flex-direction:column;gap:4px}
+.mobile-nav__link{display:block;padding:16px 12px;font-size:18px;font-weight:500;color:#1A1A1A;border-radius:8px;transition:all 0.15s ease;cursor:pointer}
+.mobile-nav__link:hover{background:#FAF7F2;color:#C8863D}
+.mobile-nav__divider{height:1px;background:#E5DDD4;margin:16px 0}
+
+.footer{background:#2C1810;color:#F5F0E8;padding:64px 0 32px}
+.footer__grid{display:grid;grid-template-columns:1fr;gap:40px;margin-bottom:48px}
+ @media(min-width:768px){.footer__grid{grid-template-columns:2fr 1fr 1fr 1fr}}
+.footer__brand{max-width:320px}
+.footer__logo{font-family:Georgia,serif;font-size:28px;font-weight:700;margin-bottom:16px}
+.footer__desc{font-size:14px;color:#B5ADA5;line-height:1.75}
+.footer__heading{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:#E0A55C;margin-bottom:16px}
+.footer__links{display:flex;flex-direction:column;gap:8px}
+.footer__link{font-size:14px;color:#B5ADA5;transition:color 0.15s ease;cursor:pointer}
+.footer__link:hover{color:#F5F0E8}
+.footer__bottom{padding-top:32px;border-top:1px solid rgba(255,255,255,0.1);display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center}
+ @media(min-width:768px){.footer__bottom{flex-direction:row;justify-content:space-between}}
+.footer__copy{font-size:14px;color:#B5ADA5}
+
+.text-center{text-align:center}
+.text-secondary{color:#5C5047}
+.text-muted{color:#8A7E74}
+
+ @media(max-width:375px){
+.section{padding:48px 0}
+.section-title{font-size:32px}
+.hero__title{font-size:32px}
+.hero{padding:40px 0 60px;min-height:auto}
+.hero__stats{grid-template-columns:1fr;gap:12px}
+.cta-banner{padding:40px 20px}
+.cta-banner__title{font-size:24px}
+}
+</style>
 </head>
 <body>
-    <div class="bg-watermark">ADDIS BRAND</div>
-    <div class="brand-grid"></div>
-    <div class="geo-element geo-element--circle"></div>
-    <div class="geo-element geo-element--square"></div>
-    <canvas id="particleCanvas"></canvas>
 
-    <div class="container">
-        <div class="brand-logo">
-            <div class="brand-logo__mark">
-                <img id="customLogo" class="custom-logo-img" src="images/logo.png" alt="Логотип" style="display:block;">
-                <svg id="defaultLogo" style="display:none;" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <defs><linearGradient id="logoGrad" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse"><stop stop-color="#0a0a0a"/><stop offset="1" stop-color="#6b7280"/></linearGradient></defs>
-                    <polygon points="40,4 72,22 72,58 40,76 8,58 8,22" stroke="url(#logoGrad)" stroke-width="2" fill="none" opacity="0.4"/>
-                    <path d="M28 56 L40 20 L52 56" stroke="url(#logoGrad)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    <line x1="32" y1="44" x2="48" y2="44" stroke="url(#logoGrad)" stroke-width="3" stroke-linecap="round"/>
-                    <circle cx="40" cy="4" r="3" fill="url(#logoGrad)" opacity="0.7"/>
-                </svg>
-            </div>
-            <div class="brand-logo__text">ADDIS</div>
-        </div>
+<header class="header" id="header">
+<div class="header__inner">
+<a class="header__logo" onclick="navigate('/')">Addis</a>
+<nav class="header__nav" aria-label="Основная навигация">
+<ul class="header__nav-list">
+<li><a class="header__nav-link" onclick="navigate('business')">Для бизнеса</a></li>
+<li><a class="header__nav-link" onclick="navigate('catalog')">Каталог</a></li>
+<li><a class="header__nav-link" onclick="navigate('solutions')">Решения</a></li>
+<li><a class="header__nav-link" onclick="navigate('production')">Производство</a></li>
+<li><a class="header__nav-link" onclick="navigate('journal')">Журнал</a></li>
+<li><a class="header__nav-link" onclick="navigate('about')">О бренде</a></li>
+</ul>
+</nav>
+<div class="header__actions">
+<button class="btn btn--secondary btn--sm" onclick="navigate('price-request')">Получить прайс</button>
+<button class="header__burger" id="burger" aria-label="Меню" aria-expanded="false">
+<span></span><span></span><span></span>
+</button>
+</div>
+</div>
+</header>
 
-        <div class="badge"><span class="pulse"></span>В разработке</div>
+<div class="mobile-nav" id="mobileNav" role="dialog" aria-label="Мобильная навигация">
+<nav class="mobile-nav__list">
+<a class="mobile-nav__link" onclick="mobileNavGo('business')">Для бизнеса</a>
+<a class="mobile-nav__link" onclick="mobileNavGo('catalog')">Каталог кофе</a>
+<a class="mobile-nav__link" onclick="mobileNavGo('solutions')">Решения</a>
+<a class="mobile-nav__link" onclick="mobileNavGo('production')">Производство</a>
+<a class="mobile-nav__link" onclick="mobileNavGo('training')">Обучение</a>
+<a class="mobile-nav__link" onclick="mobileNavGo('cases')">Кейсы</a>
+<a class="mobile-nav__link" onclick="mobileNavGo('journal')">Журнал</a>
+<a class="mobile-nav__link" onclick="mobileNavGo('about')">О бренде</a>
+<a class="mobile-nav__link" onclick="mobileNavGo('contacts')">Контакты</a>
+<div class="mobile-nav__divider"></div>
+<a class="mobile-nav__link" onclick="mobileNavGo('price-request')" style="color:#C8863D;font-weight:700">Получить прайс</a>
+<a class="mobile-nav__link" onclick="mobileNavGo('faq')">FAQ</a>
+</nav>
+</div>
 
-        <h1>Скоро здесь будет<br><span class="accent">красивый сайт</span></h1>
-        <p class="subtitle">Мы создаём что-то по-настоящему впечатляющее.<br>Совсем скоро этот сайт будет готов.</p>
+<main id="app">
 
-        <div class="brand-divider"><span class="brand-divider__line"></span><span class="brand-divider__diamond"></span><span class="brand-divider__line"></span></div>
+<!-- HOME -->
+<section class="page page--active" id="page-home">
+<div class="hero">
+<div class="container" style="max-width:1520px">
+<div class="hero__inner">
+<div class="hero__content">
+<div class="hero__badge">&#9749; Обжарка и поставки для HoReCa и retail</div>
+<h1 class="hero__title">Кофе, который работает на ваш бизнес</h1>
+<p class="hero__desc">Поставляем specialty и fine commercial кофе для кофеен, ресторанов, офисов и розницы. Стабильные партии, прозрачные условия, поддержка на каждом этапе.</p>
+<div class="hero__actions">
+<button class="btn btn--primary btn--lg" onclick="navigate('price-request')">Запросить прайс</button>
+<button class="btn btn--outline btn--lg" onclick="navigate('catalog')">Смотреть каталог</button>
+</div>
+<div class="hero__stats">
+<div class="hero__stat"><div class="hero__stat-value">50+</div><div class="hero__stat-label">позиций в каталоге</div></div>
+<div class="hero__stat"><div class="hero__stat-value">200+</div><div class="hero__stat-label">партнёров HoReCa</div></div>
+<div class="hero__stat"><div class="hero__stat-value">24ч</div><div class="hero__stat-label">от обжарки до отгрузки</div></div>
+</div>
+</div>
+<div class="hero__visual">
+<div class="hero__visual-inner">
+<div class="hero__visual-circle"><span>A</span></div>
+<div class="hero__visual-text">ADDIS COFFEE</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-        <div class="progress-section">
-            <div class="progress-label">
-                <span class="progress-label__text">Прогресс разработки</span>
-                <span class="progress-label__percent" id="progressPercent">0%</span>
-            </div>
-            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-        </div>
+<div class="section">
+<div class="container">
+<div class="section-header section-header--center">
+<div class="section-eyebrow">Кому мы работаем</div>
+<h2 class="section-title">Решения для каждого формата</h2>
+<p class="section-subtitle">Подбираем кофе и сервис под задачи вашего бизнеса</p>
+</div>
+<div class="grid-4">
+<div class="segment-card" onclick="navigate('solutions')"><div class="segment-card__bg" style="background:linear-gradient(135deg,#8B6F47,#5C4033)"></div><div class="segment-card__overlay"></div><div class="segment-card__content"><div class="segment-card__title">Кофейни</div><div class="segment-card__desc">Эспрессо-бленды, моносорта, сезонные новинки</div></div></div>
+<div class="segment-card" onclick="navigate('solutions')"><div class="segment-card__bg" style="background:linear-gradient(135deg,#6B5B3E,#3D2B1F)"></div><div class="segment-card__overlay"></div><div class="segment-card__content"><div class="segment-card__title">Рестораны</div><div class="segment-card__desc">Кофе для меню, стабильность вкуса, крупные партии</div></div></div>
+<div class="segment-card" onclick="navigate('solutions')"><div class="segment-card__bg" style="background:linear-gradient(135deg,#7B6B5A,#4A3F35)"></div><div class="segment-card__overlay"></div><div class="segment-card__content"><div class="segment-card__title">Офисы</div><div class="segment-card__desc">Надёжные бленды для супер-автоматов</div></div></div>
+<div class="segment-card" onclick="navigate('solutions')"><div class="segment-card__bg" style="background:linear-gradient(135deg,#9B8B7A,#6B5B4A)"></div><div class="segment-card__overlay"></div><div class="segment-card__content"><div class="segment-card__title">Retail</div><div class="segment-card__desc">Фасовка для полок, маркетплейсы</div></div></div>
+</div>
+</div>
+</div>
 
-        <div class="cta-card">
-            <span class="cta-card__corner cta-card__corner--tl"></span>
-            <span class="cta-card__corner cta-card__corner--br"></span>
+<div class="section section--alt">
+<div class="container">
+<div class="section-header section-header--center">
+<div class="section-eyebrow">Почему Addis</div>
+<h2 class="section-title">Преимущества работы с нами</h2>
+</div>
+<div class="grid-3">
+<div class="feature-card"><div class="feature-card__icon">&#9749;</div><div class="feature-card__title">Свежая обжарка</div><div class="feature-card__text">Обжариваем под заказ. Зерно попадает к вам за 24–48 часов после обжарки.</div></div>
+<div class="feature-card"><div class="feature-card__icon">&#128202;</div><div class="feature-card__title">Прозрачные условия</div><div class="feature-card__text">Фиксированный прайс, понятные условия доставки, без скрытых платежей.</div></div>
+<div class="feature-card"><div class="feature-card__icon">&#127919;</div><div class="feature-card__title">Подбор под задачи</div><div class="feature-card__text">Помогаем сформировать кофейную карту: от базового эспрессо до сезонных микролотов.</div></div>
+<div class="feature-card"><div class="feature-card__icon">&#128230;</div><div class="feature-card__title">Стабильность поставок</div><div class="feature-card__text">Собственный склад зелёного зерна, долгосрочные контракты с импортёрами.</div></div>
+<div class="feature-card"><div class="feature-card__icon">&#127891;</div><div class="feature-card__title">Обучение команды</div><div class="feature-card__text">Проводим каппинги, тренинги для бариста, помогаем настроить оборудование.</div></div>
+<div class="feature-card"><div class="feature-card__icon">&#128260;</div><div class="feature-card__title">Гибкие форматы</div><div class="feature-card__text">Фасовка от 250 г до 25 кг. Зерно или молотый. Свой бренд или наш.</div></div>
+</div>
+</div>
+</div>
 
-            <div class="cta-card__icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-            </div>
+<div class="section">
+<div class="container">
+<div class="grid-2-1">
+<div>
+<div class="section-header">
+<div class="section-eyebrow">Как начать</div>
+<h2 class="section-title">Начать работать — просто</h2>
+<p class="section-subtitle">От заявки до первой поставки — от 3 рабочих дней</p>
+</div>
+<div class="process-step"><div class="process-step__number">01</div><div><div class="process-step__title">Оставьте заявку</div><div class="process-step__text">Расскажите о вашем бизнесе — мы подберём решение.</div></div></div>
+<div class="process-step"><div class="process-step__number">02</div><div><div class="process-step__title">Получите прайс и подборку</div><div class="process-step__text">Менеджер подготовит персональный прайс и рекомендации.</div></div></div>
+<div class="process-step"><div class="process-step__number">03</div><div><div class="process-step__title">Согласуйте и закажите</div><div class="process-step__text">Выбираете позиции. Обжариваем за 1–2 рабочих дня.</div></div></div>
+<div class="process-step"><div class="process-step__number">04</div><div><div class="process-step__title">Работаем вместе</div><div class="process-step__text">Поддерживаем: обучение, настройка, консультации.</div></div></div>
+</div>
+<div>
+<div class="cta-banner" style="height:100%;display:flex;flex-direction:column;justify-content:center">
+<div class="cta-banner__title" style="font-size:28px">Готовы обсудить?</div>
+<div class="cta-banner__text" style="font-size:14px;margin-bottom:24px">Оставьте заявку — перезвоним в течение часа</div>
+<button class="btn btn--secondary btn--lg" style="align-self:center" onclick="navigate('price-request')">Запросить прайс</button>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-            <h2 class="cta-card__title">Нужен оптовый прайс?</h2>
-            <p class="cta-card__desc">Скачайте актуальный прайс-лист или свяжитесь с нами напрямую для сотрудничества</p>
-            
-            <a href="#" class="cta-button" id="yandexLink" target="_blank" rel="noopener noreferrer">
-                Получить оптовый прайс
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-                </svg>
-            </a>
+<div class="section section--alt">
+<div class="container">
+<div class="section-header section-header--center">
+<div class="section-eyebrow">Каталог</div>
+<h2 class="section-title">Флагманские позиции</h2>
+<p class="section-subtitle">Лучшее из нашего ассортимента — проверено сотнями кофеен</p>
+</div>
+<div class="catalog-products" id="homeFeatured"></div>
+<div class="text-center" style="margin-top:40px"><button class="btn btn--outline btn--lg" onclick="navigate('catalog')">Открыть весь каталог</button></div>
+</div>
+</div>
 
-            <br>
-            <a href="tel:+70000000000" class="cta-secondary" id="phoneLink">
-                Или позвоните нам
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                </svg>
-            </a>
-        </div>
+<div class="section">
+<div class="container">
+<div class="grid-2-1">
+<div>
+<div class="section-header">
+<div class="section-eyebrow">Производство</div>
+<h2 class="section-title">Прозрачность на каждом этапе</h2>
+<p class="section-subtitle">От выбора зелёного зерна до упаковки — контролируем каждый шаг</p>
+</div>
+<div class="timeline">
+<div class="timeline__item"><div class="timeline__dot"></div><div class="timeline__title">Закупка зелёного зерна</div><div class="timeline__text">Прямые контракты с фермами Бразилии, Эфиопии, Колумбии, Кении.</div></div>
+<div class="timeline__item"><div class="timeline__dot"></div><div class="timeline__title">Профиль обжарки</div><div class="timeline__text">Каждый лот обжаривается по индивидуальному профилю.</div></div>
+<div class="timeline__item"><div class="timeline__dot"></div><div class="timeline__title">Контроль качества</div><div class="timeline__text">Каппинг каждой партии по SCA-протоколу. Отбраковка — минимум 3%.</div></div>
+<div class="timeline__item"><div class="timeline__dot"></div><div class="timeline__title">Упаковка и отгрузка</div><div class="timeline__text">Дегазационные клапаны, азотная среда, маркировка даты обжарки.</div></div>
+</div>
+</div>
+<div style="display:flex;align-items:center;justify-content:center">
+<div style="width:100%;aspect-ratio:4/3;border-radius:24px;background:linear-gradient(135deg,#C5B8A5,#A89888);display:flex;align-items:center;justify-content:center">
+<div style="text-align:center;color:#fff">
+<div style="font-size:48px;margin-bottom:8px">&#9881;</div>
+<div style="font-size:14px;opacity:0.7;text-transform:uppercase;letter-spacing:0.1em">Обжарочный цех</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-        <div class="footer">
-            <p class="footer__text">© 2025 <span class="footer__brand">ADDIS</span>. Все права защищены.</p>
-        </div>
-    </div>
+<div class="section section--cream">
+<div class="container">
+<div class="grid-2" style="align-items:center">
+<div>
+<div class="section-header">
+<div class="section-eyebrow">Обучение</div>
+<h2 class="section-title">Запускаем не только кофе</h2>
+<p class="section-subtitle">Обучение бариста, настройка оборудования — включено в партнёрство</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;gap:16px;align-items:flex-start"><div style="width:40px;height:40px;border-radius:8px;background:#C8863D;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div><div><div style="font-weight:600;margin-bottom:4px">Каппинги и дегустации</div><div style="font-size:14px;color:#5C5047">Знакомство с линейкой, обучение оценке качества</div></div></div>
+<div style="display:flex;gap:16px;align-items:flex-start"><div style="width:40px;height:40px;border-radius:8px;background:#C8863D;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div><div><div style="font-weight:600;margin-bottom:4px">Настройка оборудования</div><div style="font-size:14px;color:#5C5047">Помощь с настройкой помола, температуры, давления</div></div></div>
+<div style="display:flex;gap:16px;align-items:flex-start"><div style="width:40px;height:40px;border-radius:8px;background:#C8863D;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div><div><div style="font-weight:600;margin-bottom:4px">Разработка рецептур</div><div style="font-size:14px;color:#5C5047">Составление кофейной карты, подбор блендов</div></div></div>
+</div>
+<div style="margin-top:32px"><button class="btn btn--primary btn--lg" onclick="navigate('training')">Подробнее об обучении</button></div>
+</div>
+<div>
+<div class="quote-card" style="border-left-color:#2C1810;background:#FAF7F2">
+<div class="quote-card__text" style="font-size:18px">&#171;Addis не просто поставляет кофе — они помогают нам расти. Обучение бариста сэкономило нам месяцы экспериментов.&#187;</div>
+<div class="quote-card__author">Алексей Морозов</div>
+<div class="quote-card__role">Управляющий, &#171;Зерно и Корица&#187;, Москва</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-    <button class="settings-trigger" id="settingsToggle" aria-label="Настройки">⚙️</button>
-    <div class="settings-panel" id="settingsPanel">
-        <h3>Настройки заглушки</h3>
-        <div class="settings-group">
-            <label for="inputPhone">Номер телефона</label>
-            <input type="text" id="inputPhone" placeholder="+7 (999) 123-45-67">
-        </div>
-        <div class="settings-group">
-            <label for="inputYandex">Ссылка на Яндекс.Диск (PDF)</label>
-            <input type="text" id="inputYandex" placeholder="https://disk.yandex.ru/...">
-        </div>
-        <div class="settings-group">
-            <label for="inputLogo">Логотип (шапка)</label>
-            <input type="file" id="inputLogo" accept="image/*">
-        </div>
-        <div class="settings-group">
-            <label for="inputBg">Фоновое изображение</label>
-            <input type="file" id="inputBg" accept="image/*">
-        </div>
-        <div class="settings-btn-group">
-            <button class="settings-btn-reset" id="resetBtn">Сбросить</button>
-            <button class="settings-btn-apply" id="applyBtn">Применить</button>
-        </div>
-    </div>
+<div class="section">
+<div class="container">
+<div class="section-header section-header--center">
+<div class="section-eyebrow">Кейсы</div>
+<h2 class="section-title">Нам доверяют</h2>
+<p class="section-subtitle">Реальные результаты наших партнёров</p>
+</div>
+<div class="grid-3">
+<div class="case-card"><div class="case-card__image" style="background:linear-gradient(135deg,#D4C5B2,#B8A898)"></div><div class="case-card__body"><div class="case-card__label">Кофейня</div><div class="case-card__title">Сеть &#171;Утро&#187; — 12 точек</div><div class="case-card__text">Стабильность вкуса выросла, стоимость зерна снизилась на 15%.</div><div class="case-card__metrics"><div><div class="case-card__metric-value">&#8722;15%</div><div class="case-card__metric-label">стоимость</div></div><div><div class="case-card__metric-value">+23%</div><div class="case-card__metric-label">повторные</div></div></div></div></div>
+<div class="case-card"><div class="case-card__image" style="background:linear-gradient(135deg,#C5B8A5,#A89888)"></div><div class="case-card__body"><div class="case-card__label">Ресторан</div><div class="case-card__title">Ресторан &#171;Базис&#187;</div><div class="case-card__text">Полностью пересобрали кофейное меню. Добавили фильтр-меню.</div><div class="case-card__metrics"><div><div class="case-card__metric-value">+38%</div><div class="case-card__metric-label">выручка</div></div><div><div class="case-card__metric-value">4.9&#9733;</div><div class="case-card__metric-label">рейтинг</div></div></div></div></div>
+<div class="case-card"><div class="case-card__image" style="background:linear-gradient(135deg,#BFB09D,#A09080)"></div><div class="case-card__body"><div class="case-card__label">Офис</div><div class="case-card__title">IT-компания &#171;Нексус&#187;</div><div class="case-card__text">Кофе-точка в офисе на 300 человек с автодоставкой.</div><div class="case-card__metrics"><div><div class="case-card__metric-value">300+</div><div class="case-card__metric-label">чашек в день</div></div><div><div class="case-card__metric-value">98%</div><div class="case-card__metric-label">довольных</div></div></div></div></div>
+</div>
+<div class="text-center" style="margin-top:40px"><button class="btn btn--outline btn--lg" onclick="navigate('cases')">Все кейсы</button></div>
+</div>
+</div>
 
-    <script>
-        const DEFAULTS = { phone: "+7 (999) 000-00-00", yandexUrl: "https://disk.yandex.ru", logo: null, backgroundImage: null };
-        let config = { ...DEFAULTS };
-        try { const saved = localStorage.getItem('addis_stub_config'); if (saved) config = { ...DEFAULTS, ...JSON.parse(saved) }; } catch (e) {}
+<div class="section section--alt">
+<div class="container">
+<div class="section-header section-header--center">
+<div class="section-eyebrow">Журнал</div>
+<h2 class="section-title">Знания и инсайты</h2>
+<p class="section-subtitle">Материалы о кофе, бизнесе и индустрии</p>
+</div>
+<div class="grid-3" id="homeJournal"></div>
+<div class="text-center" style="margin-top:40px"><button class="btn btn--outline btn--lg" onclick="navigate('journal')">Читать журнал</button></div>
+</div>
+</div>
 
-        const els = {
-            phoneLink: document.getElementById('phoneLink'),
-            yandexLink: document.getElementById('yandexLink'),
-            inputPhone: document.getElementById('inputPhone'),
-            inputYandex: document.getElementById('inputYandex'),
-            inputLogo: document.getElementById('inputLogo'),
-            inputBg: document.getElementById('inputBg'),
-            customLogo: document.getElementById('customLogo'),
-            defaultLogo: document.getElementById('defaultLogo'),
-            settingsToggle: document.getElementById('settingsToggle'),
-            settingsPanel: document.getElementById('settingsPanel'),
-            applyBtn: document.getElementById('applyBtn'),
-            resetBtn: document.getElementById('resetBtn')
-        };
+<div class="section">
+<div class="container container--narrow">
+<div class="cta-banner">
+<div class="cta-banner__title">Начните работать с Addis сегодня</div>
+<div class="cta-banner__text">Запросите прайс — подберём оптимальный ассортимент под ваш формат и объёмы.</div>
+<div class="cta-banner__actions">
+<button class="btn btn--secondary btn--lg" onclick="navigate('price-request')">Запросить прайс</button>
+<button class="btn btn--outline btn--lg" style="border-color:rgba(255,255,255,0.3);color:#F5F0E8" onclick="navigate('contacts')">Связаться с нами</button>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-        function applyConfig() {
-            els.phoneLink.href = `tel:${config.phone.replace(/\D/g, '')}`;
-            els.phoneLink.innerHTML = `Или позвоните нам: <strong>${config.phone}</strong>`;
-            els.yandexLink.href = config.yandexUrl || '#';
-            
-            if (config.logo) {
-                els.customLogo.src = config.logo;
-                els.customLogo.style.display = 'block';
-                els.defaultLogo.style.display = 'none';
-            } else {
-                els.customLogo.style.display = 'none';
-                els.defaultLogo.style.display = 'block';
-            }
+<!-- BUSINESS -->
+<section class="page" id="page-business">
+<div class="container"><div class="breadcrumbs"><span class="breadcrumbs__link" onclick="navigate('/')">Главная</span><span class="breadcrumbs__sep">/</span><span class="breadcrumbs__current">Для бизнеса</span></div></div>
+<div class="hero" style="min-height:auto;padding:48px 0">
+<div class="container container--narrow">
+<div class="hero__badge">Для HoReCa</div>
+<h1 class="hero__title" style="font-size:36px">Всё, что нужно вашему кофейному бизнесу</h1>
+<p class="hero__desc">Поставки specialty и fine commercial кофе для кофеен, ресторанов, отелей и офисов.</p>
+<div class="hero__actions"><button class="btn btn--primary btn--lg" onclick="navigate('price-request')">Запросить прайс</button><button class="btn btn--outline btn--lg" onclick="navigate('catalog')">Каталог кофе</button></div>
+</div>
+</div>
+<div class="section" style="padding-top:0">
+<div class="container">
+<div class="section-header section-header--center"><div class="section-eyebrow">Для кого</div><h2 class="section-title">Кому подходит Addis</h2></div>
+<div class="grid-4">
+<div class="feature-card"><div class="feature-card__icon">&#127980;</div><div class="feature-card__title">Кофейни</div><div class="feature-card__text">От моно-локаций до сетей. Эспрессо-бленды, моносорта, сезонные лоты.</div></div>
+<div class="feature-card"><div class="feature-card__icon">&#127860;</div><div class="feature-card__title">Рестораны</div><div class="feature-card__text">Кофе для гастрономического меню. Стабильный бленд, крупные партии.</div></div>
+<div class="feature-card"><div class="feature-card__icon">&#127970;</div><div class="feature-card__title">Офисы</div><div class="feature-card__text">Кофе для команды: надёжные бленды, удобная фасовка, подписка.</div></div>
+<div class="feature-card"><div class="feature-card__icon">&#127988;</div><div class="feature-card__title">Retail</div><div class="feature-card__text">Фасовка для полок и маркетплейсов. Собственная торговая марка.</div></div>
+</div>
+</div>
+</div>
+<div class="section section--alt">
+<div class="container">
+<div class="section-header section-header--center"><div class="section-eyebrow">Что поставляем</div><h2 class="section-title">Полный спектр кофейных решений</h2></div>
+<div class="grid-3">
+<div class="feature-card"><div class="feature-card__title">Эспрессо-бленды</div><div class="feature-card__text">Сбалансированные купажи для молочных и чёрных напитков.</div></div>
+<div class="feature-card"><div class="feature-card__title">Моносорта</div><div class="feature-card__text">Эфиопия, Колумбия, Кения, Бразилия, Гватемала.</div></div>
+<div class="feature-card"><div class="feature-card__title">Сезонные лоты</div><div class="feature-card__text">Микролоты и экспериментальные обработки.</div></div>
+<div class="feature-card"><div class="feature-card__title">Молотый кофе</div><div class="feature-card__text">Помол под турку, френч-пресс, аэропресс, фильтр.</div></div>
+<div class="feature-card"><div class="feature-card__title">Дрип-пакеты</div><div class="feature-card__text">Фильтр-кофе в удобной фасовке для офисов и ритейла.</div></div>
+<div class="feature-card"><div class="feature-card__title">Private Label</div><div class="feature-card__text">Обжарка и упаковка под вашим брендом.</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<div class="container container--narrow">
+<div class="section-header section-header--center"><div class="section-eyebrow">Условия</div><h2 class="section-title">Как мы работаем с B2B</h2></div>
+<div class="process-step"><div class="process-step__number">01</div><div><div class="process-step__title">Минимальный заказ от 5 кг</div><div class="process-step__text">Гибкие объёмы. Скидки от 15 кг, специальные условия для сетей.</div></div></div>
+<div class="process-step"><div class="process-step__number">02</div><div><div class="process-step__title">Бесплатные образцы</div><div class="process-step__text">Отправляем до 5 образцов на дегустацию перед заказом.</div></div></div>
+<div class="process-step"><div class="process-step__number">03</div><div><div class="process-step__title">Доставка по всей России</div><div class="process-step__text">СДЭК, Деловые Линии, курьер по Москве. От 1 рабочего дня.</div></div></div>
+<div class="process-step"><div class="process-step__number">04</div><div><div class="process-step__title">Персональный менеджер</div><div class="process-step__text">Один контакт для всех вопросов: заказы, консультации, обучение.</div></div></div>
+</div>
+</div>
+<div class="section section--cream">
+<div class="container container--narrow">
+<div class="cta-banner"><div class="cta-banner__title">Готовы начать сотрудничество?</div><div class="cta-banner__text">Оставьте заявку — менеджер свяжется с вами в течение часа.</div><div class="cta-banner__actions"><button class="btn btn--secondary btn--lg" onclick="navigate('price-request')">Запросить прайс</button><button class="btn btn--outline btn--lg" style="border-color:rgba(255,255,255,0.3);color:#F5F0E8" onclick="navigate('contacts')">Позвонить</button></div></div>
+</div>
+</div>
+</section>
 
-            if (config.backgroundImage) {
-                document.body.style.backgroundImage = `url('${config.backgroundImage}')`;
-                document.body.style.backgroundSize = 'cover';
-                document.body.style.backgroundPosition = 'center';
-                document.body.style.backgroundAttachment = 'fixed';
-                document.querySelector('.bg-watermark').style.opacity = '0.02';
-            } else {
-                document.body.style.backgroundImage = 'none';
-                document.querySelector('.bg-watermark').style.opacity = '0.03';
-            }
+<!-- CATALOG -->
+<section class="page" id="page-catalog">
+<div class="container"><div class="breadcrumbs"><span class="breadcrumbs__link" onclick="navigate('/')">Главная</span><span class="breadcrumbs__sep">/</span><span class="breadcrumbs__current">Каталог кофе</span></div></div>
+<div class="section" style="padding-top:0">
+<div class="container">
+<div style="margin-bottom:32px"><h1 class="section-title" style="margin-bottom:8px">Каталог кофе</h1><p class="text-secondary">50+ позиций specialty и fine commercial</p></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px" id="filterChips">
+<button class="chip chip--active" data-filter="all">Все</button>
+<button class="chip" data-filter="espresso">Эспрессо</button>
+<button class="chip" data-filter="filter">Фильтр</button>
+<button class="chip" data-filter="mono">Моносорта</button>
+<button class="chip" data-filter="blend">Бленды</button>
+<button class="chip" data-filter="seasonal">Сезонные</button>
+<button class="chip" data-filter="retail">Retail</button>
+<button class="chip" data-filter="new">Новинки</button>
+</div>
+</div>
+</div>
+<div class="section" style="padding-top:0">
+<div class="container"><div class="catalog-products" id="catalogProducts"></div></div>
+</div>
+</section>
 
-            els.inputPhone.value = config.phone;
-            els.inputYandex.value = config.yandexUrl;
-        }
+<!-- PRODUCT -->
+<section class="page" id="page-product">
+<div class="container"><div class="breadcrumbs"><span class="breadcrumbs__link" onclick="navigate('/')">Главная</span><span class="breadcrumbs__sep">/</span><span class="breadcrumbs__link" onclick="navigate('catalog')">Каталог</span><span class="breadcrumbs__sep">/</span><span class="breadcrumbs__current" id="pdpBreadcrumb">Товар</span></div></div>
+<div id="pdpContent"></div>
+</section>
 
-        els.applyBtn.addEventListener('click', () => {
-            config.phone = els.inputPhone.value || DEFAULTS.phone;
-            config.yandexUrl = els.inputYandex.value || DEFAULTS.yandexUrl;
-            try { localStorage.setItem('addis_stub_config', JSON.stringify(config)); } catch(e) {}
-            applyConfig();
-            els.settingsPanel.classList.remove('open');
-        });
+<!-- SOLUTIONS -->
+<section class="page" id="page-solutions">
+<div class="container"><div class="breadcrumbs"><span class="breadcrumbs__link" onclick="navigate('/')">Главная</span><span class="breadcrumbs__sep">/</span><span class="breadcrumbs__current">Решения по форматам</span></div></div>
+<div class="section" style="padding-top:0">
+<div class="container container--narrow">
+<div class="section-header section-header--center"><div class="section-eyebrow">Решения</div><h1 class="section-title">Решения для вашего бизнеса</h1><p class="section-subtitle">Комплексный подход к кофейному направлению</p></div>
+</div>
+</div>
+<div class="section section--alt" style="padding-top:0">
+<div class="container">
+<div class="grid-2">
+<div class="solution-card"><div class="solution-card__icon">&#9749;</div><div class="solution-card__title">Для кофейни</div><div class="solution-card__text">Полный ассортимент для кофейного бара.</div><div class="solution-card__list"><div class="solution-card__list-item">2–3 эспрессо-бленда под разный профиль</div><div class="solution-card__list-item">3–5 моносортов для фильтра</div><div class="solution-card__list-item">Сезонная ротация 2–4 позиции в квартал</div><div class="solution-card__list-item">Обучение бариста</div></div><button class="btn btn--primary" style="margin-top:24px" onclick="navigate('price-request')">Запросить подборку</button></div>
+<div class="solution-card"><div class="solution-card__icon">&#127860;</div><div class="solution-card__title">Для ресторана</div><div class="solution-card__text">Кофе как часть гастрономического опыта.</div><div class="solution-card__list"><div class="solution-card__list-item">1 надёжный эспрессо-бленд</div><div class="solution-card__list-item">1–2 премиальных моносорта</div><div class="solution-card__list-item">Дрип-пакеты для room service</div><div class="solution-card__list-item">Обучение официантов</div></div><button class="btn btn--primary" style="margin-top:24px" onclick="navigate('price-request')">Запросить подборку</button></div>
+<div class="solution-card"><div class="solution-card__icon">&#127970;</div><div class="solution-card__title">Для офиса</div><div class="solution-card__text">Кофе, который радует команду каждый день.</div><div class="solution-card__list"><div class="solution-card__list-item">1–2 бленда под супер-автомат</div><div class="solution-card__list-item">Фасовка 1 кг или 2.5 кг</div><div class="solution-card__list-item">Подписка с доставкой</div><div class="solution-card__list-item">Консультация по оборудованию</div></div><button class="btn btn--primary" style="margin-top:24px" onclick="navigate('price-request')">Запросить подборку</button></div>
+<div class="solution-card"><div class="solution-card__icon">&#127988;</div><div class="solution-card__title">Для retail</div><div class="solution-card__text">Фасовка для полок и маркетплейсов.</div><div class="solution-card__list"><div class="solution-card__list-item">Фасовка 250 г, 500 г, 1 кг</div><div class="solution-card__list-item">Дизайн упаковки под ваш бренд</div><div class="solution-card__list-item">Маркировка и сертификация</div><div class="solution-card__list-item">Логистика на маркетплейсы</div></div><button class="btn btn--primary" style="margin-top:24px" onclick="navigate('price-request')">Запросить подборку</button></div>
+</div>
+</div>
+</div>
+<div class="section">
+<div class="container container--narrow">
+<div class="cta-banner"><div class="cta-banner__title">Не знаете, что выбрать?</div><div class="cta-banner__text">Расскажите о вашем бизнесе — мы подберём оптимальное решение.</div><div class="cta-banner__actions"><button class="btn btn--secondary btn--lg" onclick="navigate('price-request')">Получить подборку</button></div></div>
+</div>
+</div>
+</section>
 
-        els.resetBtn.addEventListener('click', () => {
-            config = { ...DEFAULTS };
-            try { localStorage.removeItem('addis_stub_config'); } catch(e) {}
-            applyConfig();
-        });
+<!-- PRODUCTION -->
+<section class="page" id="page-production">
+<div class="container"><div class="breadcrumbs"><span class="breadcrumbs__link" onclick="navigate('/')">Главная</span><span class="breadcrumbs__sep">/</span><span class="breadcrumbs__current">Производство</span></div></div>
+<div class="hero" style="min-height:auto;padding:48px 0">
+<div class="container container--narrow">
+<div class="hero__badge">Производство</div>
+<h1 class="hero__title" style="font-size:36px">Прозрачность от зерна до чашки</h1>
+<p class="hero__desc">Обжариваем кофе на собственном производстве в Москве. Каждый этап контролируется.</p>
+</div>
+</div>
+<div class="section" style="padding-top:0">
+<div class="container">
+<div class="grid-2" style="align-items:center">
+<div style="width:100%;aspect-ratio:4/3;border-radius:16px;background:linear-gradient(135deg,#C5B8A5,#A89888);display:flex;align-items:center;justify-content:center">
+<div style="text-align:center;color:#fff"><div style="font-size:48px;margin-bottom:8px">&#9881;</div><div style="font-size:14px;opacity:0.7;text-transform:uppercase;letter-spacing:0.1em">Обжарочный цех</div></div>
+</div>
+<div>
+<h2 class="section-title" style="font-size:28px">Как мы обжариваем</h2>
+<p class="text-secondary" style="margin-bottom:24px;line-height:1.75">Каждый лот зелёного зерна проходит дегустацию перед обжаркой. Индивидуальный профиль.</p>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="padding:16px;background:#FAF7F2;border-radius:8px"><div style="font-weight:600;margin-bottom:4px">Ростер Loring S35</div><div style="font-size:14px;color:#5C5047">Энергоэффективный ростер с точным контролем температуры.</div></div>
+<div style="padding:16px;background:#FAF7F2;border-radius:8px"><div style="font-weight:600;margin-bottom:4px">SCA-протокол каппинга</div><div style="font-size:14px;color:#5C5047">Каждая партия оценивается по 8 параметрам SCA. Минимальный балл — 80.</div></div>
+<div style="padding:16px;background:#FAF7F2;border-radius:8px"><div style="font-weight:600;margin-bottom:4px">Дегазация и упаковка</div><div style="font-size:14px;color:#5C5047">Упаковка с дегазационным клапаном в азотной среде.</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section section--alt">
+<div class="container container--narrow">
+<div class="section-header section-header--center"><div class="section-eyebrow">Контроль качества</div><h2 class="section-title">Этапы контроля</h2></div>
+<div class="timeline">
+<div class="timeline__item"><div class="timeline__dot"></div><div class="timeline__title">Входной контроль зелёного зерна</div><div class="timeline__text">Проверка влажности, размера, дефектов.</div></div>
+<div class="timeline__item"><div class="timeline__dot"></div><div class="timeline__title">Тестовая обжарка</div><div class="timeline__text">Обжарка 300 г образца для построения профиля.</div></div>
+<div class="timeline__item"><div class="timeline__dot"></div><div class="timeline__title">Промышленная обжарка</div><div class="timeline__text">Обжарка партии по утверждённому профилю.</div></div>
+<div class="timeline__item"><div class="timeline__dot"></div><div class="timeline__title">Финальный каппинг</div><div class="timeline__text">Каждая партия проходит дегустацию перед упаковкой.</div></div>
+<div class="timeline__item"><div class="timeline__dot"></div><div class="timeline__title">Упаковка и маркировка</div><div class="timeline__text">Вакуумная упаковка с клапаном. Дата обжарки на каждой пачке.</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<div class="container container--narrow">
+<div class="cta-banner"><div class="cta-banner__title">Хотите увидеть производство?</div><div class="cta-banner__text">Приглашаем на экскурсию на наш ростерный цех.</div><div class="cta-banner__actions"><button class="btn btn--secondary btn--lg" onclick="navigate('contacts')">Записаться на экскурсию</button></div></div>
+</div>
+</div>
+</section>
 
-        function handleFileUpload(inputEl, configKey, callback) {
-            inputEl.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = (evt) => {
-                    config[configKey] = evt.target.result;
-                    try { localStorage.setItem('addis_stub_config', JSON.stringify(config)); } catch(e) {
-                        alert('Файл слишком большой для локального сохранения. Примените изменения без сохранения.');
-                        config[configKey] = null;
-                    }
-                    callback();
-                };
-                reader.readAsDataURL(file);
-            });
-        }
+<!-- TRAINING -->
+<section class="page" id="page-training">
+<div class="container"><div class="breadcrumbs"><span class="breadcrumbs__link" onclick="navigate('/')">Главная</span><span class="breadcrumbs__sep">/</span><span class="breadcrumbs__current">Обучение и запуск</span></div></div>
+<div class="hero" style="min-height:auto;padding:48px 0">
+<div class="container container--narrow">
+<div class="hero__badge">Обучение</div>
+<h1 class="hero__title" style="font-size:36px">Запускаем не только кофе</h1>
+<p class="hero__desc">Обучение, настройка, поддержка — для партнёров включено в сотрудничество.</p>
+</div>
+</div>
+<div class="section" style="padding-top:0">
+<div class="container">
+<div class="grid-3">
+<div class="feature-card"><div class="feature-card__icon">&#127891;</div><div class="feature-card__title">Обучение бариста</div><div class="feature-card__text">Практические занятия: настройка помола, экстракция, латте-арт.</div></div>
+<div class="feature-card"><div class="feature-card__icon">&#9881;</div><div class="feature-card__title">Настройка оборудования</div><div class="feature-card__text">Выезд специалиста. Настройка кофемашины, помола, воды.</div></div>
+<div class="feature-card"><div class="feature-card__icon">&#128203;</div><div class="feature-card__title">Разработка меню</div><div class="feature-card__text">Помощь в формировании кофейной карты и рецептур.</div></div>
+<div class="feature-card"><div class="feature-card__icon">&#128067;</div><div class="feature-card__title">Каппинги</div><div class="feature-card__text">Регулярные дегустации новой линейки по SCA-протоколу.</div></div>
+<div class="feature-card"><div class="feature-card__icon">&#128214;</div><div class="feature-card__title">База знаний</div><div class="feature-card__text">Статьи, гайды, видео-материалы для команды.</div></div>
+<div class="feature-card"><div class="feature-card__icon">&#129309;</div><div class="feature-card__title">Консультации</div><div class="feature-card__text">Личный менеджер всегда на связи.</div></div>
+</div>
+</div>
+</div>
+<div class="section section--cream">
+<div class="container container--narrow">
+<div class="cta-banner"><div class="cta-banner__title">Запишитесь на бесплатную консультацию</div><div class="cta-banner__text">Мы предложим программу обучения под ваши задачи.</div><div class="cta-banner__actions"><button class="btn btn--secondary btn--lg" onclick="navigate('price-request')">Записаться</button></div></div>
+</div>
+</div>
+</section>
 
-        handleFileUpload(els.inputLogo, 'logo', applyConfig);
-        handleFileUpload(els.inputBg, 'backgroundImage', applyConfig);
+<!-- CASES -->
+<section class="page" id="page-cases">
+<div class="container"><div class="breadcrumbs"><span class="breadcrumbs__link" onclick="navigate('/')">Главная</span><span class="breadcrumbs__sep">/</span><span class="breadcrumbs__current">Кейсы и партнёры</span></div></div>
+<div class="section" style="padding-top:0">
+<div class="container container--narrow">
+<div class="section-header section-header--center"><div class="section-eyebrow">Кейсы</div><h1 class="section-title">Результаты наших партнёров</h1><p class="section-subtitle">Реальные истории бизнеса, который вырос вместе с Addis</p></div>
+</div>
+</div>
+<div class="section" style="padding-top:0">
+<div class="container">
+<div class="grid-2">
+<div class="case-card"><div class="case-card__image" style="background:linear-gradient(135deg,#D4C5B2,#B8A898)"></div><div class="case-card__body"><div class="case-card__label">Сеть кофеен &#183; Москва</div><div class="case-card__title">&#171;Утро&#187; — 12 точек</div><div class="case-card__text">Сеть перешла на Addis после нестабильных поставок. Подобрали 2 эспрессо-бленда и 4 моносорта.</div><div class="quote-card" style="margin-top:24px;padding:24px"><div class="quote-card__text" style="font-size:16px">&#171;Стабильность — это главное. С Addis мы знаем, что каждая партия будет такой же.&#187;</div><div class="quote-card__author">Мария Соколова</div><div class="quote-card__role">Совладелец сети &#171;Утро&#187;</div></div><div class="case-card__metrics" style="margin-top:24px"><div><div class="case-card__metric-value">&#8722;15%</div><div class="case-card__metric-label">стоимость</div></div><div><div class="case-card__metric-value">+23%</div><div class="case-card__metric-label">повторные</div></div><div><div class="case-card__metric-value">12/12</div><div class="case-card__metric-label">точек</div></div></div></div></div>
+<div class="case-card"><div class="case-card__image" style="background:linear-gradient(135deg,#C5B8A5,#A89888)"></div><div class="case-card__body"><div class="case-card__label">Ресторан &#183; Санкт-Петербург</div><div class="case-card__title">&#171;Базис&#187; — запуск с нуля</div><div class="case-card__text">Подобрали оборудование, зерно, обучили команду и составили кофейную карту.</div><div class="quote-card" style="margin-top:24px;padding:24px"><div class="quote-card__text" style="font-size:16px">&#171;Addis провели нас за руку от выбора машины до финального меню.&#187;</div><div class="quote-card__author">Дмитрий Волков</div><div class="quote-card__role">Шеф-повар ресторана &#171;Базис&#187;</div></div><div class="case-card__metrics" style="margin-top:24px"><div><div class="case-card__metric-value">+38%</div><div class="case-card__metric-label">выручка</div></div><div><div class="case-card__metric-value">4.9&#9733;</div><div class="case-card__metric-label">рейтинг</div></div><div><div class="case-card__metric-value">8</div><div class="case-card__metric-label">позиций</div></div></div></div></div>
+</div>
+</div>
+</div>
+</section>
 
-        els.settingsToggle.addEventListener('click', () => els.settingsPanel.classList.toggle('open'));
-        document.addEventListener('click', (e) => {
-            if (!els.settingsPanel.contains(e.target) && e.target !== els.settingsToggle) els.settingsPanel.classList.remove('open');
-        });
+<!-- JOURNAL -->
+<section class="page" id="page-journal">
+<div class="container"><div class="breadcrumbs"><span class="breadcrumbs__link" onclick="navigate('/')">Главная</span><span class="breadcrumbs__sep">/</span><span class="breadcrumbs__current">Журнал</span></div></div>
+<div class="section" style="padding-top:0">
+<div class="container">
+<div style="margin-bottom:32px"><h1 class="section-title" style="margin-bottom:8px">Журнал Addis</h1><p class="text-secondary">Статьи о кофе, бизнесе и индустрии</p></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px" id="journalChips">
+<button class="chip chip--active" data-cat="all">Все</button>
+<button class="chip" data-cat="guide">Гайды</button>
+<button class="chip" data-cat="business">Бизнес</button>
+<button class="chip" data-cat="brewing">Приготовление</button>
+<button class="chip" data-cat="origin">Происхождение</button>
+<button class="chip" data-cat="news">Новости</button>
+</div>
+<div class="grid-3" id="journalArticles"></div>
+</div>
+</div>
+</section>
 
-        applyConfig();
+<!-- ABOUT -->
+<section class="page" id="page-about">
+<div class="container"><div class="breadcrumbs"><span class="breadcrumbs__link" onclick="navigate('/')">Главная</span><span class="breadcrumbs__sep">/</span><span class="breadcrumbs__current">О бренде</span></div></div>
+<div class="hero" style="min-height:auto;padding:48px 0">
+<div class="container container--narrow">
+<div class="hero__badge">О бренде</div>
+<h1 class="hero__title" style="font-size:36px">Addis — кофе без лишних слов</h1>
+<p class="hero__desc">Мы обжариваем specialty и fine commercial кофе для бизнеса. Профессионально, прозрачно, без снобизма.</p>
+</div>
+</div>
+<div class="section" style="padding-top:0">
+<div class="container container--narrow">
+<div class="section-header"><div class="section-eyebrow">Философия</div><h2 class="section-title">Кофе, который работает</h2></div>
+<div style="font-size:18px;color:#5C5047;line-height:1.75;margin-bottom:32px">
+<p style="margin-bottom:16px">Addis — это кофейный бренд, созданный для тех, кто ценит качество, но не готов переплачивать за маркетинг.</p>
+<p style="margin-bottom:16px">Мы не играем в &#171;третью волну&#187; и не обещаем &#171;кофе, который изменит вашу жизнь&#187;. Мы обещаем стабильный, вкусный кофе.</p>
+<p>Наша миссия — сделать specialty кофе доступным для бизнеса любого масштаба.</p>
+</div>
+</div>
+</div>
+<div class="section section--alt">
+<div class="container">
+<div class="grid-3">
+<div class="feature-card text-center"><div style="font-family:Georgia,serif;font-size:40px;font-weight:700;color:#C8863D;margin-bottom:12px">2019</div><div class="feature-card__title">Год основания</div><div class="feature-card__text">Начали с небольшого ростерного цеха</div></div>
+<div class="feature-card text-center"><div style="font-family:Georgia,serif;font-size:40px;font-weight:700;color:#C8863D;margin-bottom:12px">50+</div><div class="feature-card__title">Позиций в каталоге</div><div class="feature-card__text">Эспрессо-бленды, моносорта, сезонные лоты</div></div>
+<div class="feature-card text-center"><div style="font-family:Georgia,serif;font-size:40px;font-weight:700;color:#C8863D;margin-bottom:12px">200+</div><div class="feature-card__title">Партнёров HoReCa</div><div class="feature-card__text">Кофейни, рестораны, отели, офисы</div></div>
+</div>
+</div>
+</div>
+<div class="section">
+<div class="container container--narrow">
+<div class="section-header"><div class="section-eyebrow">Принципы</div><h2 class="section-title">Во что мы верим</h2></div>
+<div class="process-step"><div class="process-step__number">&#9670;</div><div><div class="process-step__title">Прозрачность важнее пафоса</div><div class="process-step__text">Мы рассказываем, откуда зерно, как обжариваем и сколько стоит.</div></div></div>
+<div class="process-step"><div class="process-step__number">&#9670;</div><div><div class="process-step__title">Стабильность — это качество</div><div class="process-step__text">Лучший кофе — тот, который каждый раз одинаково хорош.</div></div></div>
+<div class="process-step"><div class="process-step__number">&#9670;</div><div><div class="process-step__title">Кофе — это инструмент бизнеса</div><div class="process-step__text">Мы помогаем использовать его максимально эффективно.</div></div></div>
+<div class="process-step"><div class="process-step__number">&#9670;</div><div><div class="process-step__title">Доступный specialty</div><div class="process-step__text">Specialty не должен быть элитарным.</div></div></div>
+</div>
+</div>
+</section>
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const targetPercent = 67;
-            const progressFill = document.getElementById('progressFill');
-            const progressPercent = document.getElementById('progressPercent');
-            setTimeout(() => { progressFill.style.width = targetPercent + '%'; }, 500);
-            let current = 0; const duration = 2000; const startTime = performance.now();
-            function animateProgress(now) {
-                const elapsed = now - startTime - 500;
-                if (elapsed < 0) { requestAnimationFrame(animateProgress); return; }
-                const progress = Math.min(elapsed / duration, 1);
-                const eased = 1 - Math.pow(1 - progress, 3);
-                current = Math.round(eased * targetPercent);
-                progressPercent.textContent = current + '%';
-                if (progress < 1) requestAnimationFrame(animateProgress);
-            }
-            requestAnimationFrame(animateProgress);
-        });
+<!-- CONTACTS -->
+<section class="page" id="page-contacts">
+<div class="container"><div class="breadcrumbs"><span class="breadcrumbs__link" onclick="navigate('/')">Главная</span><span class="breadcrumbs__sep">/</span><span class="breadcrumbs__current">Контакты</span></div></div>
+<div class="section" style="padding-top:0">
+<div class="container container--narrow">
+<div class="section-header section-header--center"><div class="section-eyebrow">Контакты</div><h1 class="section-title">Свяжитесь с нами</h1><p class="section-subtitle">Ответим на вопросы, подберём кофе, организуем дегустацию</p></div>
+<div class="grid-2" style="margin-bottom:48px">
+<div>
+<div style="margin-bottom:32px">
+<h3 style="font-size:18px;margin-bottom:16px">Контактная информация</h3>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div><div style="font-size:12px;color:#8A7E74;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Телефон</div><span style="font-size:18px;font-weight:600;color:#2C1810">+7 (495) 123-45-67</span></div>
+<div><div style="font-size:12px;color:#8A7E74;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Email</div><span style="font-size:18px;font-weight:600;color:#2C1810">hello @addis.coffee</span></div>
+<div><div style="font-size:12px;color:#8A7E74;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Адрес</div><div style="font-size:16px;color:#5C5047">Москва, ул. Кофейная, д. 12, стр. 3</div></div>
+<div><div style="font-size:12px;color:#8A7E74;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:4px">Режим работы</div><div style="font-size:16px;color:#5C5047">Пн–Пт: 9:00 – 18:00</div></div>
+</div>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap"><button class="btn btn--outline btn--sm">Telegram</button><button class="btn btn--outline btn--sm">WhatsApp</button><button class="btn btn--outline btn--sm">Instagram</button></div>
+</div>
+<div style="background:#FAF7F2;border-radius:16px;padding:32px;border:1px solid #F0EBE4">
+<h3 style="font-size:18px;margin-bottom:24px">Быстрая заявка</h3>
+<form onsubmit="handleFormSubmit(event)">
+<div class="form-group"><label class="form-label">Имя *</label><input type="text" class="form-input" placeholder="Ваше имя" required></div>
+<div class="form-group"><label class="form-label">Телефон *</label><input type="tel" class="form-input" placeholder="+7 (___) ___-__-__" required></div>
+<div class="form-group"><label class="form-label">Сообщение</label><textarea class="form-textarea" placeholder="Расскажите о вашем бизнесе"></textarea></div>
+<button type="submit" class="btn btn--primary btn--full btn--lg">Отправить</button>
+</form>
+</div>
+</div>
+<div style="background:#F5F0E8;border-radius:16px;height:300px;display:flex;align-items:center;justify-content:center;color:#8A7E74">
+<div style="text-align:center"><div style="font-size:48px;margin-bottom:8px">&#128205;</div><div>Карта с расположением производства</div><div style="font-size:14px">Москва, ул. Кофейная, д. 12</div></div>
+</div>
+</div>
+</div>
+</section>
 
-        const canvas = document.getElementById('particleCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let mouse = { x: null, y: null };
-        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+<!-- PRICE REQUEST -->
+<section class="page" id="page-price-request">
+<div class="container"><div class="breadcrumbs"><span class="breadcrumbs__link" onclick="navigate('/')">Главная</span><span class="breadcrumbs__sep">/</span><span class="breadcrumbs__current">Получить прайс</span></div></div>
+<div class="section" style="padding-top:0">
+<div class="container container--narrow">
+<div class="section-header section-header--center"><div class="section-eyebrow">Прайс-лист</div><h1 class="section-title">Получить прайс-лист</h1><p class="section-subtitle">Заполните форму — менеджер подготовит персональный прайс</p></div>
+<div style="max-width:640px;margin:0 auto">
+<div style="background:#FAF7F2;border-radius:16px;padding:40px;border:1px solid #F0EBE4">
+<form onsubmit="handleFormSubmit(event)">
+<div class="form-row">
+<div class="form-group"><label class="form-label">Имя *</label><input type="text" class="form-input" placeholder="Ваше имя" required></div>
+<div class="form-group"><label class="form-label">Компания</label><input type="text" class="form-input" placeholder="Название компании"></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label class="form-label">Телефон *</label><input type="tel" class="form-input" placeholder="+7 (___) ___-__-__" required></div>
+<div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="email @company.ru"></div>
+</div>
+<div class="form-group"><label class="form-label">Формат бизнеса *</label><select class="form-select" required><option value="">Выберите формат</option><option>Кофейня</option><option>Ресторан</option><option>Отель</option><option>Офис / Коворкинг</option><option>Retail / Маркетплейс</option><option>Дистрибуция</option><option>Другое</option></select></div>
+<div class="form-group"><label class="form-label">Примерный объём (кг/мес)</label><select class="form-select"><option value="">Выберите объём</option><option>до 10 кг</option><option>10–30 кг</option><option>30–100 кг</option><option>100–300 кг</option><option>300+ кг</option></select></div>
+<div class="form-group"><label class="form-label">Комментарий</label><textarea class="form-textarea" placeholder="Расскажите подробнее о ваших задачах"></textarea></div>
+<button type="submit" class="btn btn--primary btn--full btn--lg">Отправить заявку</button>
+<div class="form-hint text-center" style="margin-top:16px">Нажимая кнопку, вы соглашаетесь с политикой обработки данных</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-        class Particle {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 1.5 + 0.5; this.speedX = (Math.random() - 0.5) * 0.25;
-                this.speedY = (Math.random() - 0.5) * 0.25; this.opacity = Math.random() * 0.12 + 0.03;
-            }
-            update() {
-                this.x += this.speedX; this.y += this.speedY;
-                if (mouse.x !== null) {
-                    const dx = mouse.x - this.x, dy = mouse.y - this.y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 90) { const force = (90 - dist) / 90; this.x -= (dx / dist) * force * 0.6; this.y -= (dy / dist) * force * 0.6; }
-                }
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(0, 0, 0, ${this.opacity})`; ctx.fill(); }
-        }
-        for (let i = 0; i < 40; i++) particles.push(new Particle());
-        
-        function connectParticles() {
-            for (let a = 0; a < particles.length; a++) {
-                for (let b = a + 1; b < particles.length; b++) {
-                    const dx = particles[a].x - particles[b].x, dy = particles[a].y - particles[b].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 100) { ctx.beginPath(); ctx.strokeStyle = `rgba(0, 0, 0, ${(1 - dist / 100) * 0.04})`; ctx.lineWidth = 0.6; ctx.moveTo(particles[a].x, particles[a].y); ctx.lineTo(particles[b].x, particles[b].y); ctx.stroke(); }
-                }
-            }
-        }
-        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); connectParticles(); requestAnimationFrame(animate); }
-        animate();
-    </script>
+<!-- FAQ -->
+<section class="page" id="page-faq">
+<div class="container"><div class="breadcrumbs"><span class="breadcrumbs__link" onclick="navigate('/')">Главная</span><span class="breadcrumbs__sep">/</span><span class="breadcrumbs__current">FAQ</span></div></div>
+<div class="section" style="padding-top:0">
+<div class="container container--narrow">
+<div class="section-header section-header--center"><div class="section-eyebrow">Вопросы</div><h1 class="section-title">Частые вопросы</h1><p class="section-subtitle">Ответы на самые популярные вопросы о работе с Addis</p></div>
+<div id="faqList"></div>
+<div class="text-center" style="margin-top:48px"><p class="text-secondary" style="margin-bottom:16px">Не нашли ответ?</p><button class="btn btn--primary btn--lg" onclick="navigate('contacts')">Связаться с нами</button></div>
+</div>
+</div>
+</section>
+
+<!-- 404 -->
+<section class="page" id="page-404">
+<div class="page-404">
+<div class="page-404__code">404</div>
+<h1 class="page-404__title">Страница не найдена</h1>
+<p class="page-404__text">Возможно, ссылка устарела. Вернитесь на главную или перейдите в каталог.</p>
+<div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center">
+<button class="btn btn--primary btn--lg" onclick="navigate('/')">На главную</button>
+<button class="btn btn--outline btn--lg" onclick="navigate('catalog')">В каталог</button>
+</div>
+</div>
+</section>
+
+</main>
+
+<footer class="footer">
+<div class="container" style="max-width:1520px">
+<div class="footer__grid">
+<div class="footer__brand"><div class="footer__logo">Addis</div><p class="footer__desc">Specialty и fine commercial кофе для бизнеса. Обжарка, поставки, обучение, поддержка.</p></div>
+<div><div class="footer__heading">Каталог</div><div class="footer__links"><span class="footer__link" onclick="navigate('catalog')">Все позиции</span><span class="footer__link" onclick="navigate('catalog')">Эспрессо-бленды</span><span class="footer__link" onclick="navigate('catalog')">Моносорта</span><span class="footer__link" onclick="navigate('catalog')">Сезонные лоты</span><span class="footer__link" onclick="navigate('catalog')">Дрип-пакеты</span></div></div>
+<div><div class="footer__heading">Бизнес</div><div class="footer__links"><span class="footer__link" onclick="navigate('business')">Для HoReCa</span><span class="footer__link" onclick="navigate('solutions')">Решения</span><span class="footer__link" onclick="navigate('training')">Обучение</span><span class="footer__link" onclick="navigate('production')">Производство</span><span class="footer__link" onclick="navigate('cases')">Кейсы</span><span class="footer__link" onclick="navigate('price-request')">Получить прайс</span></div></div>
+<div><div class="footer__heading">Компания</div><div class="footer__links"><span class="footer__link" onclick="navigate('about')">О бренде</span><span class="footer__link" onclick="navigate('journal')">Журнал</span><span class="footer__link" onclick="navigate('faq')">FAQ</span><span class="footer__link" onclick="navigate('contacts')">Контакты</span></div></div>
+</div>
+<div class="footer__bottom">
+<div class="footer__copy">&#169; 2026 Addis. Все права защищены.</div>
+<div style="display:flex;gap:16px"><span class="footer__link">Telegram</span><span class="footer__link">WhatsApp</span><span class="footer__link">Instagram</span></div>
+</div>
+</div>
+</footer>
+
+<div class="notification" id="notification"></div>
+<button class="back-to-top" id="backToTop" aria-label="Наверх">
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 16V4M4 10l6-6 6 6"/></svg>
+</button>
+
+<script>
+(function(){
+
+var products=[
+{id:'ethiopia-yirgacheffe',name:'Эфиопия Иргачеффе',category:'filter',type:'Моносорт',origin:'Эфиопия, Иргачеффе',process:'Мытая',roast:'Светлая',density:'Высокая',acidity:'Высокая',body:'Лёгкое',notes:'Жасмин, бергамот, лимон, чай',brew:'V60, AeroPress, Chemex',price:1890,unit:'за 1 кг',tags:['mono','filter','new'],featured:true,fp:{acidity:9,sweetness:7,body:3,bitterness:2},c1:'#8B6F47',c2:'#5C4033'},
+{id:'colombia-huila',name:'Колумбия Уила',category:'espresso',type:'Моносорт',origin:'Колумбия, Уила',process:'Мытая',roast:'Средняя',density:'Средняя',acidity:'Средняя',body:'Среднее',notes:'Карамель, орех, шоколад, яблоко',brew:'Эспрессо, Moka',price:1650,unit:'за 1 кг',tags:['mono','espresso'],featured:true,fp:{acidity:6,sweetness:8,body:7,bitterness:3},c1:'#6B5B3E',c2:'#3D2B1F'},
+{id:'brazil-cerrado',name:'Бразилия Серрадо',category:'espresso',type:'Моносорт',origin:'Бразилия, Серрадо',process:'Натуральная',roast:'Средняя',density:'Средняя',acidity:'Низкая',body:'Плотное',notes:'Шоколад, орех, карамель',brew:'Эспрессо, турка',price:1450,unit:'за 1 кг',tags:['mono','espresso','retail'],featured:true,fp:{acidity:3,sweetness:7,body:9,bitterness:4},c1:'#7B6B5A',c2:'#4A3F35'},
+{id:'kenya-aa',name:'Кения AA',category:'filter',type:'Моносорт',origin:'Кения, Ньери',process:'Мытая',roast:'Светлая',density:'Высокая',acidity:'Высокая',body:'Среднее',notes:'Чёрная смородина, грейпфрут, томат',brew:'V60, Kalita',price:2200,unit:'за 1 кг',tags:['mono','filter','seasonal'],featured:true,fp:{acidity:9,sweetness:6,body:5,bitterness:2},c1:'#9B8B7A',c2:'#6B5B4A'},
+{id:'blend-classico',name:'Classico',category:'espresso',type:'Эспрессо-бленд',origin:'Бразилия, Колумбия',process:'Смешанная',roast:'Средняя',density:'Средняя',acidity:'Средняя',body:'Плотное',notes:'Тёмный шоколад, карамель, фундук',brew:'Эспрессо',price:1350,unit:'за 1 кг',tags:['blend','espresso'],featured:true,fp:{acidity:4,sweetness:8,body:8,bitterness:3},c1:'#A08060',c2:'#706050'},
+{id:'blend-morning',name:'Morning Blend',category:'espresso',type:'Эспрессо-бленд',origin:'Бразилия, Гватемала',process:'Смешанная',roast:'Средне-тёмная',density:'Средняя',acidity:'Низкая',body:'Плотное',notes:'Тёмный шоколад, табак, орех',brew:'Эспрессо',price:1250,unit:'за 1 кг',tags:['blend','espresso','retail'],featured:false,fp:{acidity:3,sweetness:6,body:9,bitterness:5},c1:'#887766',c2:'#554433'},
+{id:'guatemala-antigua',name:'Гватемала Антигуа',category:'filter',type:'Моносорт',origin:'Гватемала, Антигуа',process:'Мытая',roast:'Средняя',density:'Высокая',acidity:'Средняя',body:'Среднее',notes:'Какао, специи, мёд',brew:'V60, Chemex',price:1750,unit:'за 1 кг',tags:['mono','filter'],featured:false,fp:{acidity:6,sweetness:7,body:6,bitterness:3},c1:'#7A6A5A',c2:'#4A3F30'},
+{id:'costa-rica-tarrazu',name:'Коста-Рика Тарразу',category:'filter',type:'Моносорт',origin:'Коста-Рика, Тарразу',process:'Honey',roast:'Светло-средняя',density:'Высокая',acidity:'Высокая',body:'Среднее',notes:'Мёд, персик, жасмин',brew:'V60, AeroPress',price:1950,unit:'за 1 кг',tags:['mono','filter','new'],featured:true,fp:{acidity:8,sweetness:8,body:5,bitterness:2},c1:'#8A7A6A',c2:'#5A4F40'},
+{id:'blend-office',name:'Office Blend',category:'espresso',type:'Эспрессо-бленд',origin:'Бразилия, Вьетнам',process:'Смешанная',roast:'Тёмная',density:'Средняя',acidity:'Низкая',body:'Очень плотное',notes:'Тёмный шоколад, специи',brew:'Супер-автомат',price:990,unit:'за 1 кг',tags:['blend','espresso','retail'],featured:false,fp:{acidity:2,sweetness:5,body:10,bitterness:7},c1:'#6A5A4A',c2:'#3A2F20'},
+{id:'ethiopia-natural',name:'Эфиопия Гуji',category:'seasonal',type:'Моносорт',origin:'Эфиопия, Гуji',process:'Натуральная',roast:'Светлая',density:'Высокая',acidity:'Высокая',body:'Среднее',notes:'Клубника, черника, шоколад',brew:'V60, Chemex',price:2100,unit:'за 1 кг',tags:['mono','filter','seasonal','new'],featured:true,fp:{acidity:8,sweetness:9,body:5,bitterness:1},c1:'#9A7A5A',c2:'#6A5040'},
+{id:'drip-ethiopia',name:'Дрип Эфиопия',category:'retail',type:'Фильтр-пакет',origin:'Эфиопия, Иргачеффе',process:'Мытая',roast:'Средняя',density:'—',acidity:'Средняя',body:'Лёгкое',notes:'Цитрус, мёд, чай',brew:'Дрип-пакет',price:180,unit:'за 1 шт',tags:['retail'],featured:false,fp:{acidity:7,sweetness:7,body:3,bitterness:2},c1:'#7A6A5A',c2:'#4A3F30'},
+{id:'drip-brazil',name:'Дрип Бразилия',category:'retail',type:'Фильтр-пакет',origin:'Бразилия, Серрадо',process:'Натуральная',roast:'Средняя',density:'—',acidity:'Низкая',body:'Среднее',notes:'Шоколад, орех, карамель',brew:'Дрип-пакет',price:160,unit:'за 1 шт',tags:['retail'],featured:false,fp:{acidity:3,sweetness:7,body:6,bitterness:3},c1:'#6A5A4A',c2:'#3A2F20'}
+];
+
+var articles=[
+{id:1,title:'Как выбрать кофе для кофейни: полное руководство',category:'guide',excerpt:'Разбираем, на что обращать внимание при выборе зерна.',date:'12 апреля 2026',readTime:'8 мин'},
+{id:2,title:'Эспрессо vs фильтр: что выгоднее для бизнеса',category:'business',excerpt:'Сравниваем маржинальность эспрессо и фильтр-кофе.',date:'8 апреля 2026',readTime:'6 мин'},
+{id:3,title:'Натуральная обработка: что это и как влияет на вкус',category:'origin',excerpt:'Разбираемся в методах обработки зелёного зерна.',date:'3 апреля 2026',readTime:'10 мин'},
+{id:4,title:'Настройка помола: пошаговый гайд для бариста',category:'brewing',excerpt:'Как правильно настроить помол для эспрессо.',date:'28 марта 2026',readTime:'7 мин'},
+{id:5,title:'Запуск кофейного направления в ресторане',category:'business',excerpt:'Пошаговый план внедрения кофе в ресторанное меню.',date:'22 марта 2026',readTime:'12 мин'},
+{id:6,title:'V60, Kalita, AeroPress: какой метод выбрать',category:'brewing',excerpt:'Сравниваем популярные методы альтернативного приготовления.',date:'15 марта 2026',readTime:'5 мин'},
+{id:7,title:'Новый лот из Колумбии: ферма El Paraíso',category:'news',excerpt:'Рассказываем о новом микролоте из региона Уила.',date:'10 марта 2026',readTime:'4 мин'},
+{id:8,title:'Private Label: как запустить свой бренд кофе',category:'business',excerpt:'Всё о запуске собственной линейки кофе.',date:'5 марта 2026',readTime:'9 мин'},
+{id:9,title:'Хранение кофе: правила для бизнеса',category:'guide',excerpt:'Как правильно хранить кофе в кофейне.',date:'1 марта 2026',readTime:'5 мин'}
+];
+
+var faqs=[
+{q:'Какой минимальный объём заказа?',a:'Минимальный заказ — 5 кг. Для объёмов от 15 кг действуют оптовые скидки.'},
+{q:'Как быстро доставляете?',a:'По Москве и МО — 1 рабочий день. По России — 2–5 рабочих дней.'},
+{q:'Можно ли получить образцы перед заказом?',a:'Да, отправляем до 5 образцов бесплатно.'},
+{q:'Обжариваете ли вы под заказ?',a:'Да, все позиции обжариваются под заказ. Зерно попадает к вам за 24–48 часов после обжарки.'},
+{q:'Какие способы оплаты принимаете?',a:'Безналичный расчёт для юрлиц и ИП. Для физлиц — карты, СБП.'},
+{q:'Работаете ли с регионами?',a:'Да, доставляем по всей России.'},
+{q:'Можно ли заказать кофе под своим брендом?',a:'Да, Private Label: обжарка, упаковка, маркировка под вашей ТМ. От 500 упаковок.'},
+{q:'Проводите ли обучение бариста?',a:'Да, для партнёров обучение включено.'},
+{q:'Какой срок годности кофе?',a:'6 месяцев с даты обжарки. Дата обжарки указана на каждой пачке.'},
+{q:'Можно ли вернуть кофе?',a:'Если зерно не соответствует описанию — заменим или вернём деньги.'}
+];
+
+var currentFilter='all';
+var currentPageId='home';
+
+function makeBag(p,lg){
+var sw=lg?'55%':'65%';
+var sh=lg?'65%':'75%';
+var fs=lg?'80px':'36px';
+var ns=lg?'14px':'11px';
+var sn=p.name.split(' ').slice(0,2).join(' ');
+return '<div style="width:'+sw+';height:'+sh+';border-radius:8px;background:linear-gradient(135deg,'+p.c1+','+p.c2+');display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,0.15)"><div style="font-family:Georgia,serif;font-size:'+fs+';color:rgba(255,255,255,0.6);font-weight:700">A</div><div style="font-size:'+ns+';color:rgba(255,255,255,0.5);margin-top:4px;text-align:center;padding:0 8px">'+sn+'</div></div>';
+}
+
+function renderProductCard(p){
+var b='';
+if(p.tags.indexOf('new')!==-1)b+='<span class="product-card__badge badge badge--secondary">Новинка</span>';
+if(p.tags.indexOf('seasonal')!==-1)b+='<span class="product-card__badge badge badge--success">Сезон</span>';
+return '<div class="product-card" onclick="window.showProduct(\''+p.id+'\')"><div class="product-card__image">'+makeBag(p,false)+b+'</div><div class="product-card__body"><div class="product-card__category">'+p.type+'</div><div class="product-card__name">'+p.name+'</div><div class="product-card__profile"><span class="product-card__param">&#127777; '+p.acidity+'</span><span class="product-card__param">&#128167; '+p.body+'</span><span class="product-card__param">&#127758; '+p.origin.split(',')[0].trim()+'</span></div><div class="taste-bar"><span class="taste-bar__label">Кислотность</span><div class="taste-bar__track"><div class="taste-bar__fill" style="width:'+(p.fp.acidity*10)+'%"></div></div></div><div class="taste-bar"><span class="taste-bar__label">Сладость</span><div class="taste-bar__track"><div class="taste-bar__fill" style="width:'+(p.fp.sweetness*10)+'%"></div></div></div><div class="taste-bar"><span class="taste-bar__label">Плотность</span><div class="taste-bar__track"><div class="taste-bar__fill" style="width:'+(p.fp.body*10)+'%"></div></div></div><div style="display:flex;align-items:baseline;gap:8px;margin-top:12px"><span class="product-card__price">'+p.price.toLocaleString()+' &#8381;</span><span class="product-card__price-unit">'+p.unit+'</span></div><div class="product-card__actions"><button class="btn btn--primary btn--sm" onclick="event.stopPropagation();window.navigateApp(\'price-request\')">В запрос</button><button class="btn btn--outline btn--sm" onclick="event.stopPropagation();window.showProduct(\''+p.id+'\')">Подробнее</button></div></div></div>';
+}
+
+function renderArticleCard(a){
+var grads=['linear-gradient(135deg,#D4C5B2,#B8A898)','linear-gradient(135deg,#C5B8A5,#A89888)','linear-gradient(135deg,#BFB09D,#A09080)'];
+var cats={guide:'Гайд',business:'Бизнес',brewing:'Приготовление',origin:'Происхождение',news:'Новости'};
+return '<article class="article-card" data-category="'+a.category+'"><div class="article-card__image" style="background:'+grads[a.id%3]+'"></div><div class="article-card__body"><div class="article-card__category">'+(cats[a.category]||a.category)+'</div><div class="article-card__title">'+a.title+'</div><div class="article-card__excerpt">'+a.excerpt+'</div><div class="article-card__meta">'+a.date+' &#183; '+a.readTime+'</div></div></article>';
+}
+
+window.showProduct=function(pid){
+var p=null;
+for(var i=0;i<products.length;i++){if(products[i].id===pid){p=products[i];break;}}
+if(!p){switchPage('404');return;}
+
+var bc=document.getElementById('pdpBreadcrumb');
+if(bc)bc.textContent=p.name;
+
+var related=[];
+for(var j=0;j<products.length;j++){
+if(products[j].id===pid)continue;
+if(products[j].category===p.category||products[j].tags.some(function(t){return p.tags.indexOf(t)!==-1})){
+related.push(products[j]);
+if(related.length>=4)break;
+}
+}
+
+var badges='';
+if(p.tags.indexOf('new')!==-1)badges+='<span class="badge badge--secondary" style="margin-right:8px">Новинка</span>';
+if(p.tags.indexOf('seasonal')!==-1)badges+='<span class="badge badge--success">Сезонный лот</span>';
+
+var espText=(p.category==='espresso'||p.category==='blend')?'Идеально для эспрессо и молочных напитков.':'Может использоваться для эспрессо, но лучше раскрывается в фильтре.';
+var filText=(p.category==='filter'||p.category==='seasonal')?'Отличный выбор для V60, AeroPress, Chemex.':'Не рекомендуется для альтернативного приготовления.';
+
+var html='';
+html+='<div class="section"><div class="container"><div class="pdp-layout">';
+html+='<div class="pdp-image" style="background:linear-gradient(135deg,'+p.c1+','+p.c2+')">'+makeBag(p,true)+'</div>';
+html+='<div class="pdp-info">';
+html+='<div style="margin-bottom:16px">'+badges+'</div>';
+html+='<h1 class="pdp-info__title">'+p.name+'</h1>';
+html+='<div class="pdp-info__subtitle">'+p.type+'</div>';
+html+='<div class="pdp-info__price">'+p.price.toLocaleString()+' &#8381; <span style="font-size:16px;font-weight:400;color:#8A7E74">'+p.unit+'</span></div>';
+html+='<div class="pdp-facts">';
+html+='<div><div class="pdp-fact__label">Происхождение</div><div class="pdp-fact__value">'+p.origin+'</div></div>';
+html+='<div><div class="pdp-fact__label">Обработка</div><div class="pdp-fact__value">'+p.process+'</div></div>';
+html+='<div><div class="pdp-fact__label">Обжарка</div><div class="pdp-fact__value">'+p.roast+'</div></div>';
+html+='<div><div class="pdp-fact__label">Плотность</div><div class="pdp-fact__value">'+p.density+'</div></div>';
+html+='<div><div class="pdp-fact__label">Кислотность</div><div class="pdp-fact__value">'+p.acidity+'</div></div>';
+html+='<div><div class="pdp-fact__label">Тело</div><div class="pdp-fact__value">'+p.body+'</div></div>';
+html+='<div><div class="pdp-fact__label">Приготовление</div><div class="pdp-fact__value">'+p.brew+'</div></div>';
+html+='<div><div class="pdp-fact__label">Вкус</div><div class="pdp-fact__value">'+p.notes+'</div></div>';
+html+='</div>';
+html+='<div style="display:flex;gap:12px;flex-wrap:wrap">';
+html+='<button class="btn btn--primary btn--lg" onclick="window.navigateApp(\'price-request\')">Запросить прайс</button>';
+html+='<button class="btn btn--outline btn--lg" onclick="window.navigateApp(\'catalog\')">Вернуться в каталог</button>';
+html+='</div>';
+html+='<div style="margin-top:32px;padding:24px;background:#FAF7F2;border-radius:12px;border-left:3px solid #C8863D">';
+html+='<div style="font-weight:600;margin-bottom:8px">Для HoReCa</div>';
+html+='<div style="font-size:14px;color:#5C5047;line-height:1.75">Доступен оптом. Минимальная партия — 5 кг. Бесплатные образцы. Персональные условия от 15 кг.</div>';
+html+='</div>';
+html+='</div></div></div></div>';
+
+html+='<div class="section section--alt"><div class="container container--narrow">';
+html+='<h2 class="section-title" style="font-size:28px">Вкусовой профиль</h2>';
+html+='<div style="display:grid;gap:16px;margin-top:24px">';
+html+='<div class="taste-bar"><span class="taste-bar__label">Кислотность</span><div class="taste-bar__track" style="height:8px"><div class="taste-bar__fill" style="width:'+(p.fp.acidity*10)+'%"></div></div><span style="font-size:14px;font-weight:600;min-width:30px;text-align:right">'+p.fp.acidity+'/10</span></div>';
+html+='<div class="taste-bar"><span class="taste-bar__label">Сладость</span><div class="taste-bar__track" style="height:8px"><div class="taste-bar__fill" style="width:'+(p.fp.sweetness*10)+'%"></div></div><span style="font-size:14px;font-weight:600;min-width:30px;text-align:right">'+p.fp.sweetness+'/10</span></div>';
+html+='<div class="taste-bar"><span class="taste-bar__label">Плотность</span><div class="taste-bar__track" style="height:8px"><div class="taste-bar__fill" style="width:'+(p.fp.body*10)+'%"></div></div><span style="font-size:14px;font-weight:600;min-width:30px;text-align:right">'+p.fp.body+'/10</span></div>';
+html+='<div class="taste-bar"><span class="taste-bar__label">Горечь</span><div class="taste-bar__track" style="height:8px"><div class="taste-bar__fill" style="width:'+(p.fp.bitterness*10)+'%"></div></div><span style="font-size:14px;font-weight:600;min-width:30px;text-align:right">'+p.fp.bitterness+'/10</span></div>';
+html+='</div>';
+html+='<div style="margin-top:24px;font-size:14px;color:#5C5047;line-height:1.75"><strong>Дескрипторы:</strong> '+p.notes+'</div>';
+html+='</div></div>';
+
+html+='<div class="section"><div class="container container--narrow">';
+html+='<h2 class="section-title" style="font-size:28px">Кому подойдёт</h2>';
+html+='<div class="grid-2" style="margin-top:24px">';
+html+='<div class="feature-card"><div class="feature-card__title">Для эспрессо</div><div class="feature-card__text">'+espText+'</div></div>';
+html+='<div class="feature-card"><div class="feature-card__title">Для фильтра</div><div class="feature-card__text">'+filText+'</div></div>';
+html+='</div></div></div>';
+
+if(related.length>0){
+html+='<div class="section section--alt"><div class="container"><h2 class="section-title" style="font-size:28px">Похожие товары</h2><div class="catalog-products" style="margin-top:24px">';
+for(var k=0;k<related.length;k++){html+=renderProductCard(related[k]);}
+html+='</div></div></div>';
+}
+
+document.getElementById('pdpContent').innerHTML=html;
+switchPage('product');
+};
+
+function renderCatalog(){
+var filtered=products;
+if(currentFilter!=='all'){
+filtered=products.filter(function(p){return p.tags.indexOf(currentFilter)!==-1||p.category===currentFilter;});
+}
+var c=document.getElementById('catalogProducts');
+if(!c)return;
+if(filtered.length===0){
+c.innerHTML='<div class="text-center" style="grid-column:1/-1;padding:64px 0"><div style="font-size:20px;margin-bottom:16px">Ничего не найдено</div><div class="text-secondary">Попробуйте изменить фильтры</div></div>';
+}else{
+var html='';
+for(var i=0;i<filtered.length;i++){html+=renderProductCard(filtered[i]);}
+c.innerHTML=html;
+}
+}
+
+function renderJournal(){
+var c=document.getElementById('journalArticles');
+if(!c)return;
+var html='';
+for(var i=0;i<articles.length;i++){html+=renderArticleCard(articles[i]);}
+c.innerHTML=html;
+}
+
+function renderFAQ(){
+var c=document.getElementById('faqList');
+if(!c)return;
+var html='';
+for(var i=0;i<faqs.length;i++){
+html+='<div class="faq-item" data-faq="'+i+'"><button class="faq-question" onclick="window.toggleFAQ('+i+')" aria-expanded="false"><span>'+faqs[i].q+'</span><svg class="faq-question__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button><div class="faq-answer"><div class="faq-answer__inner">'+faqs[i].a+'</div></div></div>';
+}
+c.innerHTML=html;
+}
+
+window.toggleFAQ=function(index){
+var item=document.querySelector('[data-faq="'+index+'"]');
+if(!item)return;
+var isOpen=item.classList.contains('faq-item--open');
+var allItems=document.querySelectorAll('.faq-item');
+for(var i=0;i<allItems.length;i++){
+allItems[i].classList.remove('faq-item--open');
+allItems[i].querySelector('.faq-question').setAttribute('aria-expanded','false');
+}
+if(!isOpen){
+item.classList.add('faq-item--open');
+item.querySelector('.faq-question').setAttribute('aria-expanded','true');
+}
+};
+
+function switchPage(pageId){
+var allPages=document.querySelectorAll('.page');
+for(var i=0;i<allPages.length;i++){
+allPages[i].classList.remove('page--active');
+}
+var target=document.getElementById('page-'+pageId);
+if(target){
+target.classList.add('page--active');
+}else{
+var p404=document.getElementById('page-404');
+if(p404)p404.classList.add('page--active');
+}
+currentPageId=pageId;
+window.scrollTo(0,0);
+}
+
+window.navigateApp=function(page){
+switchPage(page);
+closeMobileMenu();
+};
+
+window.navigate=function(page){
+navigateApp(page);
+};
+
+window.mobileNavGo=function(page){
+navigateApp(page);
+};
+
+function closeMobileMenu(){
+var mobileNav=document.getElementById('mobileNav');
+var burger=document.getElementById('burger');
+if(mobileNav){mobileNav.classList.remove('mobile-nav--open');}
+if(burger){burger.classList.remove('header__burger--open');burger.setAttribute('aria-expanded','false');}
+document.body.style.overflow='';
+}
+
+window.handleFormSubmit=function(event){
+event.preventDefault();
+var el=document.getElementById('notification');
+if(el){
+el.textContent='Заявка отправлена! Мы свяжемся с вами в ближайшее время.';
+el.classList.add('notification--visible');
+setTimeout(function(){el.classList.remove('notification--visible');},4000);
+}
+event.target.reset();
+};
+
+var burger=document.getElementById('burger');
+var mobileNav=document.getElementById('mobileNav');
+if(burger){
+burger.addEventListener('click',function(){
+var isOpen=mobileNav.classList.contains('mobile-nav--open');
+if(isOpen){
+closeMobileMenu();
+}else{
+mobileNav.classList.add('mobile-nav--open');
+burger.classList.add('header__burger--open');
+burger.setAttribute('aria-expanded','true');
+document.body.style.overflow='hidden';
+}
+});
+}
+
+var backToTop=document.getElementById('backToTop');
+if(backToTop){
+backToTop.addEventListener('click',function(){window.scrollTo(0,0);});
+window.addEventListener('scroll',function(){
+if(window.scrollY>600){
+backToTop.classList.add('back-to-top--visible');
+}else{
+backToTop.classList.remove('back-to-top--visible');
+}
+},{passive:true});
+}
+
+function initApp(){
+var featured=products.filter(function(p){return p.featured;});
+var homeF=document.getElementById('homeFeatured');
+if(homeF){
+var hf='';
+for(var i=0;i<featured.length;i++){hf+=renderProductCard(featured[i]);}
+homeF.innerHTML=hf;
+}
+
+var homeJ=document.getElementById('homeJournal');
+if(homeJ){
+var hj='';
+for(var j=0;j<3&&j<articles.length;j++){hj+=renderArticleCard(articles[j]);}
+homeJ.innerHTML=hj;
+}
+
+renderCatalog();
+renderJournal();
+renderFAQ();
+
+var filterChips=document.getElementById('filterChips');
+if(filterChips){
+filterChips.addEventListener('click',function(e){
+var chip=e.target.closest('.chip');
+if(!chip)return;
+var filter=chip.getAttribute('data-filter');
+if(!filter)return;
+currentFilter=filter;
+var allChips=filterChips.querySelectorAll('.chip');
+for(var i=0;i<allChips.length;i++)allChips[i].classList.remove('chip--active');
+chip.classList.add('chip--active');
+renderCatalog();
+});
+}
+
+var journalChips=document.getElementById('journalChips');
+if(journalChips){
+journalChips.addEventListener('click',function(e){
+var chip=e.target.closest('.chip');
+if(!chip)return;
+var cat=chip.getAttribute('data-cat');
+if(!cat)return;
+var allChips=journalChips.querySelectorAll('.chip');
+for(var i=0;i<allChips.length;i++)allChips[i].classList.remove('chip--active');
+chip.classList.add('chip--active');
+var cards=document.querySelectorAll('#journalArticles .article-card');
+for(var j=0;j<cards.length;j++){
+if(cat==='all'||cards[j].getAttribute('data-category')===cat){
+cards[j].style.display='';
+}else{
+cards[j].style.display='none';
+}
+}
+});
+}
+
+switchPage('home');
+}
+
+if(document.readyState==='loading'){
+document.addEventListener('DOMContentLoaded',initApp);
+}else{
+initApp();
+}
+
+})();
+</script>
 </body>
 </html>
