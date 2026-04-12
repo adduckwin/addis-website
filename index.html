@@ -23,6 +23,10 @@
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
             background-color: var(--page-bg);
+            background-image: url('images/bg-fallback.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: var(--brand-text);
             display: flex;
             flex-direction: column;
@@ -171,8 +175,8 @@
     <div class="container">
         <div class="brand-logo">
             <div class="brand-logo__mark">
-                <img id="customLogo" class="custom-logo-img" src="" alt="Логотип">
-                <svg id="defaultLogo" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <img id="customLogo" class="custom-logo-img" src="images/logo.png" alt="Логотип" style="display:block;">
+                <svg id="defaultLogo" style="display:none;" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs><linearGradient id="logoGrad" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse"><stop stop-color="#0a0a0a"/><stop offset="1" stop-color="#6b7280"/></linearGradient></defs>
                     <polygon points="40,4 72,22 72,58 40,76 8,58 8,22" stroke="url(#logoGrad)" stroke-width="2" fill="none" opacity="0.4"/>
                     <path d="M28 56 L40 20 L52 56" stroke="url(#logoGrad)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
