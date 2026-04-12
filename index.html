@@ -1,13 +1,411 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Addis Coffee</title>
-    <script type="module" crossorigin src="./assets/index-CjF8xxnJ.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BwaocQcl.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADDIS | Скоро здесь будет что-то крутое</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-text: #0a0a0a;
+            --brand-text-muted: #6b7280;
+            --brand-text-secondary: #374151;
+            --brand-gradient: linear-gradient(135deg, #111111 0%, #555555 100%);
+            --card-bg: #ffffff;
+            --card-border: #e5e7eb;
+            --page-bg: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background-color: var(--page-bg);
+            color: var(--brand-text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+            transition: background-image 0.5s ease;
+        }
+
+        .bg-watermark {
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) rotate(-8deg);
+            font-size: clamp(30px, 10vw, 110px); font-weight: 900;
+            color: var(--brand-text); opacity: 0.03;
+            white-space: nowrap; pointer-events: none; z-index: 1;
+            letter-spacing: 0.1em; user-select: none;
+        }
+
+        .brand-grid {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; pointer-events: none; opacity: 0.04;
+            background-image: linear-gradient(rgba(0,0,0,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.3) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .geo-element { position: fixed; z-index: 3; pointer-events: none; opacity: 0.1; }
+        .geo-element--circle { width: 140px; height: 140px; border: 2px solid var(--brand-text); border-radius: 50%; top: 12%; right: 8%; animation: rotateGeo 24s linear infinite; }
+        .geo-element--square { width: 90px; height: 90px; border: 2px solid var(--brand-text); bottom: 18%; right: 12%; animation: rotateGeo 18s linear infinite reverse; }
+        @keyframes rotateGeo { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        canvas#particleCanvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 4; pointer-events: none; }
+
+        .container { position: relative; z-index: 10; text-align: center; padding: 40px 24px; max-width: 680px; width: 100%; }
+
+        .brand-logo { margin: 0 auto 28px; animation: fadeInUp 0.8s ease-out both; }
+        .brand-logo__mark { width: 72px; height: 72px; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; position: relative; }
+        .custom-logo-img { max-width: 100%; max-height: 100%; object-fit: contain; display: none; }
+        .brand-logo__text { font-size: 13px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: var(--brand-text); }
+
+        .badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(0, 0, 0, 0.05); border: 1px solid rgba(0, 0, 0, 0.15);
+            border-radius: 100px; padding: 7px 18px; font-size: 11px; font-weight: 600;
+            color: var(--brand-text); margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease-out 0.1s both; letter-spacing: 1.5px; text-transform: uppercase;
+        }
+        .badge .pulse { width: 7px; height: 7px; background: var(--brand-text); border-radius: 50%; position: relative; }
+        .badge .pulse::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 1px solid var(--brand-text); animation: pulseRing 2s ease-out infinite; }
+        @keyframes pulseRing { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(2); opacity: 0; } }
+
+        h1 { font-size: clamp(32px, 7vw, 52px); font-weight: 900; line-height: 1.05; margin-bottom: 14px; animation: fadeInUp 0.8s ease-out 0.2s both; letter-spacing: -1.5px; color: var(--brand-text); }
+        h1 .accent { background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: block; }
+        .subtitle { font-size: clamp(15px, 2.5vw, 18px); color: var(--brand-text-muted); line-height: 1.6; margin-bottom: 36px; font-weight: 400; animation: fadeInUp 0.8s ease-out 0.3s both; }
+
+        .brand-divider { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 32px; animation: fadeInUp 0.8s ease-out 0.35s both; }
+        .brand-divider__line { width: 40px; height: 1px; background: linear-gradient(90deg, transparent, #d1d5db, transparent); }
+        .brand-divider__diamond { width: 7px; height: 7px; background: var(--brand-text); transform: rotate(45deg); opacity: 0.7; }
+
+        .progress-section { margin-bottom: 36px; animation: fadeInUp 0.8s ease-out 0.4s both; }
+        .progress-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 12px; }
+        .progress-label__text { color: var(--brand-text-muted); font-weight: 500; letter-spacing: 0.5px; }
+        .progress-label__percent { color: var(--brand-text); font-weight: 700; }
+        .progress-bar { width: 100%; height: 4px; background: #f3f4f6; border-radius: 100px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; background: var(--brand-gradient); border-radius: 100px; transition: width 2s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        .cta-card {
+            position: relative; background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 20px; padding: 32px 28px; animation: fadeInUp 0.8s ease-out 0.5s both;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04); transition: all 0.35s ease; overflow: hidden;
+        }
+        .cta-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--brand-gradient); opacity: 0.6; }
+        .cta-card__corner { position: absolute; width: 18px; height: 18px; opacity: 0.2; }
+        .cta-card__corner--tl { top: 10px; left: 10px; border-top: 2px solid var(--brand-text); border-left: 2px solid var(--brand-text); }
+        .cta-card__corner--br { bottom: 10px; right: 10px; border-bottom: 2px solid var(--brand-text); border-right: 2px solid var(--brand-text); }
+        .cta-card:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08); border-color: rgba(0,0,0,0.2); }
+
+        .cta-card__icon { width: 46px; height: 46px; margin: 0 auto 14px; background: var(--brand-gradient); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+        .cta-card__title { font-size: 18px; font-weight: 700; margin-bottom: 6px; color: var(--brand-text); }
+        .cta-card__desc { font-size: 14px; color: var(--brand-text-muted); margin-bottom: 22px; line-height: 1.5; }
+
+        .cta-button {
+            display: inline-flex; align-items: center; gap: 10px; padding: 13px 28px;
+            background: var(--brand-gradient); color: #ffffff; text-decoration: none;
+            border-radius: 11px; font-size: 15px; font-weight: 600; transition: all 0.3s ease;
+            border: none; cursor: pointer; position: relative; overflow: hidden;
+        }
+        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2); }
+        .cta-button svg { transition: transform 0.3s ease; }
+        .cta-button:hover svg { transform: translateX(4px); }
+
+        .cta-secondary { display: inline-flex; align-items: center; gap: 6px; margin-top: 18px; color: var(--brand-text-muted); text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; }
+        .cta-secondary:hover { color: var(--brand-text); }
+
+        .footer { margin-top: 28px; animation: fadeInUp 0.8s ease-out 0.6s both; }
+        .footer__text { font-size: 12px; color: #9ca3af; }
+        .footer__brand { color: var(--brand-text); opacity: 0.8; font-weight: 600; }
+
+        .settings-trigger {
+            position: fixed; bottom: 20px; right: 20px; width: 40px; height: 40px;
+            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08); z-index: 100; transition: all 0.3s; font-size: 18px;
+        }
+        .settings-trigger:hover { transform: rotate(30deg); box-shadow: 0 4px 15px rgba(0,0,0,0.12); }
+
+        .settings-panel {
+            position: fixed; bottom: 20px; right: 20px; width: 320px; max-height: 90vh; overflow-y: auto;
+            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px;
+            padding: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); z-index: 99;
+            transform: translateY(20px); opacity: 0; pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .settings-panel.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+        .settings-panel h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: var(--brand-text); }
+        .settings-group { margin-bottom: 14px; }
+        .settings-group label { display: block; font-size: 12px; color: var(--brand-text-muted); margin-bottom: 6px; font-weight: 500; }
+        .settings-group input[type="text"], .settings-group input[type="file"] {
+            width: 100%; padding: 10px 12px; border: 1px solid var(--card-border);
+            border-radius: 8px; font-size: 13px; font-family: inherit; background: #f9fafb; transition: border 0.2s;
+        }
+        .settings-group input:focus { outline: none; border-color: var(--brand-text); background: #fff; }
+        .settings-btn-group { display: flex; gap: 10px; margin-top: 18px; }
+        .settings-btn-apply, .settings-btn-reset { flex: 1; padding: 10px; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .settings-btn-apply { background: var(--brand-gradient); color: #fff; }
+        .settings-btn-apply:hover { opacity: 0.9; transform: translateY(-1px); }
+        .settings-btn-reset { background: #f3f4f6; color: var(--brand-text-muted); }
+        .settings-btn-reset:hover { background: #e5e7eb; }
+
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 600px) {
+            .container { padding: 32px 16px; }
+            .cta-card { padding: 24px 18px; }
+            .settings-panel { width: calc(100% - 40px); right: 20px; bottom: 70px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-watermark">ADDIS BRAND</div>
+    <div class="brand-grid"></div>
+    <div class="geo-element geo-element--circle"></div>
+    <div class="geo-element geo-element--square"></div>
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="container">
+        <div class="brand-logo">
+            <div class="brand-logo__mark">
+                <img id="customLogo" class="custom-logo-img" src="" alt="Логотип">
+                <svg id="defaultLogo" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs><linearGradient id="logoGrad" x1="0" y1="0" x2="80" y2="80" gradientUnits="userSpaceOnUse"><stop stop-color="#0a0a0a"/><stop offset="1" stop-color="#6b7280"/></linearGradient></defs>
+                    <polygon points="40,4 72,22 72,58 40,76 8,58 8,22" stroke="url(#logoGrad)" stroke-width="2" fill="none" opacity="0.4"/>
+                    <path d="M28 56 L40 20 L52 56" stroke="url(#logoGrad)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line x1="32" y1="44" x2="48" y2="44" stroke="url(#logoGrad)" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="40" cy="4" r="3" fill="url(#logoGrad)" opacity="0.7"/>
+                </svg>
+            </div>
+            <div class="brand-logo__text">ADDIS</div>
+        </div>
+
+        <div class="badge"><span class="pulse"></span>В разработке</div>
+
+        <h1>Скоро здесь будет<br><span class="accent">красивый сайт</span></h1>
+        <p class="subtitle">Мы создаём что-то по-настоящему впечатляющее.<br>Совсем скоро этот сайт будет готов.</p>
+
+        <div class="brand-divider"><span class="brand-divider__line"></span><span class="brand-divider__diamond"></span><span class="brand-divider__line"></span></div>
+
+        <div class="progress-section">
+            <div class="progress-label">
+                <span class="progress-label__text">Прогресс разработки</span>
+                <span class="progress-label__percent" id="progressPercent">0%</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        </div>
+
+        <div class="cta-card">
+            <span class="cta-card__corner cta-card__corner--tl"></span>
+            <span class="cta-card__corner cta-card__corner--br"></span>
+
+            <div class="cta-card__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+            </div>
+
+            <h2 class="cta-card__title">Нужен оптовый прайс?</h2>
+            <p class="cta-card__desc">Скачайте актуальный прайс-лист или свяжитесь с нами напрямую для сотрудничества</p>
+            
+            <a href="#" class="cta-button" id="yandexLink" target="_blank" rel="noopener noreferrer">
+                Получить оптовый прайс
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
+            </a>
+
+            <br>
+            <a href="tel:+70000000000" class="cta-secondary" id="phoneLink">
+                Или позвоните нам
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p class="footer__text">© 2025 <span class="footer__brand">ADDIS</span>. Все права защищены.</p>
+        </div>
+    </div>
+
+    <button class="settings-trigger" id="settingsToggle" aria-label="Настройки">⚙️</button>
+    <div class="settings-panel" id="settingsPanel">
+        <h3>Настройки заглушки</h3>
+        <div class="settings-group">
+            <label for="inputPhone">Номер телефона</label>
+            <input type="text" id="inputPhone" placeholder="+7 (999) 123-45-67">
+        </div>
+        <div class="settings-group">
+            <label for="inputYandex">Ссылка на Яндекс.Диск (PDF)</label>
+            <input type="text" id="inputYandex" placeholder="https://disk.yandex.ru/...">
+        </div>
+        <div class="settings-group">
+            <label for="inputLogo">Логотип (шапка)</label>
+            <input type="file" id="inputLogo" accept="image/*">
+        </div>
+        <div class="settings-group">
+            <label for="inputBg">Фоновое изображение</label>
+            <input type="file" id="inputBg" accept="image/*">
+        </div>
+        <div class="settings-btn-group">
+            <button class="settings-btn-reset" id="resetBtn">Сбросить</button>
+            <button class="settings-btn-apply" id="applyBtn">Применить</button>
+        </div>
+    </div>
+
+    <script>
+        const DEFAULTS = { phone: "+7 (999) 000-00-00", yandexUrl: "https://disk.yandex.ru", logo: null, backgroundImage: null };
+        let config = { ...DEFAULTS };
+        try { const saved = localStorage.getItem('addis_stub_config'); if (saved) config = { ...DEFAULTS, ...JSON.parse(saved) }; } catch (e) {}
+
+        const els = {
+            phoneLink: document.getElementById('phoneLink'),
+            yandexLink: document.getElementById('yandexLink'),
+            inputPhone: document.getElementById('inputPhone'),
+            inputYandex: document.getElementById('inputYandex'),
+            inputLogo: document.getElementById('inputLogo'),
+            inputBg: document.getElementById('inputBg'),
+            customLogo: document.getElementById('customLogo'),
+            defaultLogo: document.getElementById('defaultLogo'),
+            settingsToggle: document.getElementById('settingsToggle'),
+            settingsPanel: document.getElementById('settingsPanel'),
+            applyBtn: document.getElementById('applyBtn'),
+            resetBtn: document.getElementById('resetBtn')
+        };
+
+        function applyConfig() {
+            els.phoneLink.href = `tel:${config.phone.replace(/\D/g, '')}`;
+            els.phoneLink.innerHTML = `Или позвоните нам: <strong>${config.phone}</strong>`;
+            els.yandexLink.href = config.yandexUrl || '#';
+            
+            if (config.logo) {
+                els.customLogo.src = config.logo;
+                els.customLogo.style.display = 'block';
+                els.defaultLogo.style.display = 'none';
+            } else {
+                els.customLogo.style.display = 'none';
+                els.defaultLogo.style.display = 'block';
+            }
+
+            if (config.backgroundImage) {
+                document.body.style.backgroundImage = `url('${config.backgroundImage}')`;
+                document.body.style.backgroundSize = 'cover';
+                document.body.style.backgroundPosition = 'center';
+                document.body.style.backgroundAttachment = 'fixed';
+                document.querySelector('.bg-watermark').style.opacity = '0.02';
+            } else {
+                document.body.style.backgroundImage = 'none';
+                document.querySelector('.bg-watermark').style.opacity = '0.03';
+            }
+
+            els.inputPhone.value = config.phone;
+            els.inputYandex.value = config.yandexUrl;
+        }
+
+        els.applyBtn.addEventListener('click', () => {
+            config.phone = els.inputPhone.value || DEFAULTS.phone;
+            config.yandexUrl = els.inputYandex.value || DEFAULTS.yandexUrl;
+            try { localStorage.setItem('addis_stub_config', JSON.stringify(config)); } catch(e) {}
+            applyConfig();
+            els.settingsPanel.classList.remove('open');
+        });
+
+        els.resetBtn.addEventListener('click', () => {
+            config = { ...DEFAULTS };
+            try { localStorage.removeItem('addis_stub_config'); } catch(e) {}
+            applyConfig();
+        });
+
+        function handleFileUpload(inputEl, configKey, callback) {
+            inputEl.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (evt) => {
+                    config[configKey] = evt.target.result;
+                    try { localStorage.setItem('addis_stub_config', JSON.stringify(config)); } catch(e) {
+                        alert('Файл слишком большой для локального сохранения. Примените изменения без сохранения.');
+                        config[configKey] = null;
+                    }
+                    callback();
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        handleFileUpload(els.inputLogo, 'logo', applyConfig);
+        handleFileUpload(els.inputBg, 'backgroundImage', applyConfig);
+
+        els.settingsToggle.addEventListener('click', () => els.settingsPanel.classList.toggle('open'));
+        document.addEventListener('click', (e) => {
+            if (!els.settingsPanel.contains(e.target) && e.target !== els.settingsToggle) els.settingsPanel.classList.remove('open');
+        });
+
+        applyConfig();
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const targetPercent = 67;
+            const progressFill = document.getElementById('progressFill');
+            const progressPercent = document.getElementById('progressPercent');
+            setTimeout(() => { progressFill.style.width = targetPercent + '%'; }, 500);
+            let current = 0; const duration = 2000; const startTime = performance.now();
+            function animateProgress(now) {
+                const elapsed = now - startTime - 500;
+                if (elapsed < 0) { requestAnimationFrame(animateProgress); return; }
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                current = Math.round(eased * targetPercent);
+                progressPercent.textContent = current + '%';
+                if (progress < 1) requestAnimationFrame(animateProgress);
+            }
+            requestAnimationFrame(animateProgress);
+        });
+
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null };
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('mousemove', (e) => { mouse.x = e.clientX; mouse.y = e.clientY; });
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5 + 0.5; this.speedX = (Math.random() - 0.5) * 0.25;
+                this.speedY = (Math.random() - 0.5) * 0.25; this.opacity = Math.random() * 0.12 + 0.03;
+            }
+            update() {
+                this.x += this.speedX; this.y += this.speedY;
+                if (mouse.x !== null) {
+                    const dx = mouse.x - this.x, dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 90) { const force = (90 - dist) / 90; this.x -= (dx / dist) * force * 0.6; this.y -= (dy / dist) * force * 0.6; }
+                }
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(0, 0, 0, ${this.opacity})`; ctx.fill(); }
+        }
+        for (let i = 0; i < 40; i++) particles.push(new Particle());
+        
+        function connectParticles() {
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a + 1; b < particles.length; b++) {
+                    const dx = particles[a].x - particles[b].x, dy = particles[a].y - particles[b].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 100) { ctx.beginPath(); ctx.strokeStyle = `rgba(0, 0, 0, ${(1 - dist / 100) * 0.04})`; ctx.lineWidth = 0.6; ctx.moveTo(particles[a].x, particles[a].y); ctx.lineTo(particles[b].x, particles[b].y); ctx.stroke(); }
+                }
+            }
+        }
+        function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); connectParticles(); requestAnimationFrame(animate); }
+        animate();
+    </script>
+</body>
 </html>
